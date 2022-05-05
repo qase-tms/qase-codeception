@@ -1,0 +1,26 @@
+{
+    "require-dev": {
+        "codeception/module-asserts": "*",
+        "codeception/module-phpbrowser": "*",
+        "qase/codeception-reporter": "dev-master",
+        "qase/php-client-utils": "dev-master",
+        "vlucas/phpdotenv": "^5.4"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/qase-tms/qase-codeception.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/qase-tms/qase-php-client-utils.git"
+        }
+    ]
+}
