@@ -51,10 +51,38 @@ To run tests and create a test run, execute the command:
 $ ./vendor/bin/codecept run
 ```
 
+<p align="center">
+  <img width="65%" src="./example/screenshots/screenshot.png">
+</p>
+
 A test run will be performed and available at:
 ```
 https://app.qase.io/run/QASE_PROJECT_CODE
 ```
+
+## Using parameterization
+
+Codeception reporter also allows you to perform parameterization of the test case. To do this, you need to specify a dataprovider. Example:
+```php
+    /**
+     * @dataProvider additionProvider
+     */
+    public function testUsingProvider($a, $b, $expected)
+    {
+        $this->assertSame($expected, $a + $b);
+    }
+
+    public function additionProvider()
+    {
+        return [
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 1, 3]
+        ];
+    }
+```
+![dashboard](example/screenshots/screenshot2.png)
 
 ## Configuration
 
@@ -74,3 +102,13 @@ Reporter options (* - required):
 - *`QASE_API_BASE_URL` - URL endpoint API from Qase TMS, default is `https://api.qase.io/v1`.
 - `QASE_RUN_ID` - allows you to use an existing test run instead of creating new.
 - `QASE_RUN_COMPLETE` - performs the "complete" function after passing the test run.
+
+The configuration file should be called `.env.test`, an example of such a file:
+
+```
+QASE_REPORT=1
+QASE_RUN_COMPLETE=1
+QASE_API_TOKEN=api_token
+QASE_API_BASE_URL=https://api.qase.io/v1
+QASE_PROJECT_CODE=project_code
+```
