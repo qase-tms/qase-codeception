@@ -52,37 +52,13 @@ $ ./vendor/bin/codecept run
 ```
 
 <p align="center">
-  <img width="65%" src="./example/screenshots/screenshot.png">
+  <img width="85%" src="./example/screenshots/screenshot.png">
 </p>
 
 A test run will be performed and available at:
 ```
 https://app.qase.io/run/QASE_PROJECT_CODE
 ```
-
-## Using parameterization
-
-Codeception reporter also allows you to perform parameterization of the test case. To do this, you need to specify a dataprovider. Example:
-```php
-    /**
-     * @dataProvider additionProvider
-     */
-    public function testUsingProvider($a, $b, $expected)
-    {
-        $this->assertSame($expected, $a + $b);
-    }
-
-    public function additionProvider()
-    {
-        return [
-            [0, 0, 0],
-            [0, 1, 1],
-            [1, 0, 1],
-            [1, 1, 3]
-        ];
-    }
-```
-![dashboard](example/screenshots/screenshot2.png)
 
 ## Configuration
 
