@@ -132,7 +132,7 @@ class Reporter extends Extension
 
         switch (true) {
             case $test instanceof Cest:
-                $class = get_class($test->getTestClass());
+                $class = get_class($test->getTestInstance());
                 $method = $test->getTestMethod();
                 break;
             case $test instanceof Unit:
