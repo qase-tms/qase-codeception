@@ -74,3 +74,4 @@ Reporter options (* - required):
 - *`QASE_API_BASE_URL` - URL endpoint API from Qase TMS, default is `https://api.qase.io/v1`.
 - `QASE_RUN_ID` - allows you to use an existing test run instead of creating new.
 - `QASE_RUN_COMPLETE` - performs the "complete" function after passing the test run.
+- `QASE_ENVIRONMENT_ID` - environment ID from Qase TMS
