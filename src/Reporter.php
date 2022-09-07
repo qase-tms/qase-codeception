@@ -68,7 +68,7 @@ class Reporter extends Extension
 
         $runId = $this->reporterConfig->getRunId();
         if (!$runId) {
-            $runId = $this->resultHandler->createRunId($this->reporterConfig->getProjectCode());
+            $runId = $this->resultHandler->createRunId($this->reporterConfig->getProjectCode(), $this->reporterConfig->getEnvironmentId());
             putenv('QASE_RUN_ID=' . $runId);
         }
 
@@ -76,9 +76,11 @@ class Reporter extends Extension
             $this->reporterConfig->getProjectCode(),
             $runId,
             $this->reporterConfig->getCompleteRunAfterSubmit(),
+            $this->reporterConfig->getEnvironmentId(),
         );
 
         $this->validateProjectCode();
+        $this->validateEnvironmentId();
     }
 
     public function afterSuite(\Codeception\Event\PrintResultEvent $event): void
@@ -164,6 +166,25 @@ class Reporter extends Extension
             $this->logger->writeln('OK', '');
         } catch (ApiException $e) {
             $this->logger->writeln("could not find project '{$this->runResult->getProjectCode()}'");
+
+            throw $e;
+        }
+    }
+
+    private function validateEnvironmentId(): void
+    {
+        if ($this->reporterConfig->getEnvironmentId() === null) {
+            return;
+        }
+
+        try {
+            $this->logger->write("checking if Environment Id '{$this->reporterConfig->getEnvironmentId()}' exists... ");
+
+            $this->repo->getEnvironmentsApi()->getEnvironment($this->runResult->getProjectCode(), $this->reporterConfig->getEnvironmentId());
+
+            $this->logger->writeln('OK', '');
+        } catch (ApiException $e) {
+            $this->logger->writeln("could not find Environment Id '{$this->reporterConfig->getEnvironmentId()}'");
 
             throw $e;
         }
