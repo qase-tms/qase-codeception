@@ -173,7 +173,7 @@ class Reporter extends Extension
 
     private function validateEnvironmentId(): void
     {
-        if ($this->reporterConfig->getEnvironmentId() !== null) {
+        if ($this->reporterConfig->getEnvironmentId() === null) {
             return;
         }
 
