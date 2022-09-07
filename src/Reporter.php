@@ -80,10 +80,7 @@ class Reporter extends Extension
         );
 
         $this->validateProjectCode();
-
-        if ($this->reporterConfig->getEnvironmentId() !== null) {
-            $this->validateEnvironmentId();
-        }
+        $this->validateEnvironmentId();
     }
 
     public function afterSuite(\Codeception\Event\PrintResultEvent $event): void
@@ -176,6 +173,10 @@ class Reporter extends Extension
 
     private function validateEnvironmentId(): void
     {
+        if ($this->reporterConfig->getEnvironmentId() !== null) {
+            return;
+        }
+
         try {
             $this->logger->write("checking if Environment Id '{$this->reporterConfig->getEnvironmentId()}' exists... ");
 
