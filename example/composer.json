@@ -2,7 +2,7 @@
     "require-dev": {
         "codeception/module-asserts": "*",
         "codeception/module-phpbrowser": "*",
-        "qase/codeception-reporter": "^1.0",
+        "qase/codeception-reporter": "^1.0.1",
         "vlucas/phpdotenv": "^5.4"
     },
     "config": {
