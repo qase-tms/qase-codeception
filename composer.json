@@ -22,12 +22,10 @@
         "ext-json": "*",
         "qase/api": "v1.0.1",
         "qase/php-client-utils": "^1.0.1",
-        "codeception/codeception": "^3.0 || ^4.0"
+        "codeception/codeception": "^5.0"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "codeception/module-phpbrowser": "^1.0.0",
-        "codeception/module-asserts": "^1.0.0"
+        "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {
