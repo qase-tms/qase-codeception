@@ -5,7 +5,7 @@ namespace Tests\Unit;
 class ExampleTest extends \Codeception\Test\Unit
 {
     /**
-     * @var \UnitTester
+     * @var \Tests\Support\UnitTester
      */
     protected $tester;
     
