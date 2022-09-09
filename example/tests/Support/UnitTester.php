@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Tests\Support;
 
 /**
  * Inherited Methods
@@ -12,7 +15,7 @@
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
- * @method void pause()
+ * @method void pause($vars = [])
  *
  * @SuppressWarnings(PHPMD)
 */
