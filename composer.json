@@ -21,7 +21,7 @@
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "qase/api": "v1.0.1",
-        "qase/php-client-utils": "^1.0.1",
+        "qase/php-client-utils": "^1.0.3",
         "codeception/codeception": "^3.0 || ^4.0"
     },
     "require-dev": {

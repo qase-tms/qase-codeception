@@ -12,7 +12,9 @@ use Codeception\Test\Cest;
 use Codeception\Test\Unit;
 use Qase\Client\ApiException;
 use Qase\PhpClientUtils\Config;
+use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\ConsoleLogger;
+use Qase\PhpClientUtils\NullLogger;
 use Qase\PhpClientUtils\Repository;
 use Qase\PhpClientUtils\ResultHandler;
 use Qase\PhpClientUtils\ResultsConverter;
@@ -29,7 +31,7 @@ class Reporter extends Extension
     private RunResult $runResult;
     private Repository $repo;
     private ResultHandler $resultHandler;
-    private ConsoleLogger $logger;
+    private LoggerInterface $logger;
     private Config $reporterConfig;
     private HeaderManager $headerManager;
 
@@ -47,8 +49,12 @@ class Reporter extends Extension
     {
         parent::_initialize();
 
-        $this->logger = new ConsoleLogger();
         $this->reporterConfig = new Config();
+        if ($this->reporterConfig->isLoggingEnabled()) {
+            $this->logger = new ConsoleLogger();
+        } else {
+            $this->logger = new NullLogger();
+        }
         $resultsConverter = new ResultsConverter($this->logger);
 
         if (!$this->reporterConfig->isReportingEnabled()) {
