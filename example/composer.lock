@@ -2034,16 +2034,16 @@
         },
         {
             "name": "qase/api",
-            "version": "v1.0.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qase-tms/qase-php-client.git",
-                "reference": "5503d78d8fdbfb8d1c788f042bbd391298bf96cb"
+                "reference": "ea23eb163444f494c648b9928de059c0b1f62e24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-php-client/zipball/5503d78d8fdbfb8d1c788f042bbd391298bf96cb",
-                "reference": "5503d78d8fdbfb8d1c788f042bbd391298bf96cb",
+                "url": "https://api.github.com/repos/qase-tms/qase-php-client/zipball/ea23eb163444f494c648b9928de059c0b1f62e24",
+                "reference": "ea23eb163444f494c648b9928de059c0b1f62e24",
                 "shasum": ""
             },
             "require": {
@@ -2055,7 +2055,7 @@
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.4",
+                "friendsofphp/php-cs-fixer": "^3.5",
                 "phpstan/phpstan": "^1.3",
                 "phpunit/phpunit": "^8.0 || ^9.0",
                 "roave/security-advisories": "dev-latest",
@@ -2097,9 +2097,9 @@
             ],
             "support": {
                 "issues": "https://github.com/qase-tms/qase-php-client/issues",
-                "source": "https://github.com/qase-tms/qase-php-client/tree/v1.0.1"
+                "source": "https://github.com/qase-tms/qase-php-client/tree/v1.2.0"
             },
-            "time": "2022-04-01T08:17:39+00:00"
+            "time": "2022-06-03T05:24:24+00:00"
         },
         {
             "name": "qase/codeception-reporter",
@@ -2107,14 +2107,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-codeception",
-                "reference": "8bdf4b0d79d5b530c55237432d4dd8a6380a3563"
+                "reference": "28de2f8ca06f24d16c7f10c8fa055fe3c0fb87b9"
             },
             "require": {
                 "codeception/codeception": "^5.0",
                 "ext-json": "*",
                 "php": "^7.4 || ^8.0",
-                "qase/api": "v1.0.1",
-                "qase/php-client-utils": "^1.0.1"
+                "qase/api": "v1.2.0",
+                "qase/php-client-utils": "^1.0.3"
             },
             "require-dev": {
                 "roave/security-advisories": "dev-latest"
@@ -2143,21 +2143,27 @@
                 "reporter",
                 "tms"
             ],
-            "time": "2022-09-09T11:15:06+00:00"
+            "time": "2022-09-16T10:17:33+00:00"
         },
         {
             "name": "qase/php-client-utils",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qase-tms/qase-php-client-utils.git",
-                "reference": "76038e131c70cda42955addf6a67c07c5bebebc7"
+                "reference": "556a43910ecb6df2a3a76842bc56d93bb83f5a32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-php-client-utils/zipball/76038e131c70cda42955addf6a67c07c5bebebc7",
-                "reference": "76038e131c70cda42955addf6a67c07c5bebebc7",
+                "url": "https://api.github.com/repos/qase-tms/qase-php-client-utils/zipball/556a43910ecb6df2a3a76842bc56d93bb83f5a32",
+                "reference": "556a43910ecb6df2a3a76842bc56d93bb83f5a32",
                 "shasum": ""
+            },
+            "require": {
+                "qase/api": "v1.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
             "autoload": {
@@ -2171,9 +2177,9 @@
             ],
             "support": {
                 "issues": "https://github.com/qase-tms/qase-php-client-utils/issues",
-                "source": "https://github.com/qase-tms/qase-php-client-utils/tree/v1.0.1"
+                "source": "https://github.com/qase-tms/qase-php-client-utils/tree/v1.0.3"
             },
-            "time": "2022-09-06T18:18:26+00:00"
+            "time": "2022-09-14T21:25:34+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -2388,16 +2394,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "4.0.6",
+            "version": "4.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "55f4261989e546dc112258c7a75935a81a7ce382"
+                "reference": "fa0f136dd2334583309d32b62544682ee972b51a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/55f4261989e546dc112258c7a75935a81a7ce382",
-                "reference": "55f4261989e546dc112258c7a75935a81a7ce382",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/fa0f136dd2334583309d32b62544682ee972b51a",
+                "reference": "fa0f136dd2334583309d32b62544682ee972b51a",
                 "shasum": ""
             },
             "require": {
@@ -2450,7 +2456,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/4.0.6"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/4.0.8"
             },
             "funding": [
                 {
@@ -2458,7 +2464,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-26T15:49:45+00:00"
+            "time": "2022-09-14T12:41:17+00:00"
         },
         {
             "name": "sebastian/complexity",
@@ -2648,16 +2654,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "4.0.4",
+            "version": "4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "65e8b7db476c5dd267e65eea9cab77584d3cfff9"
+                "reference": "ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/65e8b7db476c5dd267e65eea9cab77584d3cfff9",
-                "reference": "65e8b7db476c5dd267e65eea9cab77584d3cfff9",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d",
+                "reference": "ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d",
                 "shasum": ""
             },
             "require": {
@@ -2713,7 +2719,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/4.0.4"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/4.0.5"
             },
             "funding": [
                 {
@@ -2721,7 +2727,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-11T14:18:36+00:00"
+            "time": "2022-09-14T06:03:37+00:00"
         },
         {
             "name": "sebastian/global-state",
@@ -3076,16 +3082,16 @@
         },
         {
             "name": "sebastian/type",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "fb44e1cc6e557418387ad815780360057e40753e"
+                "reference": "fb3fe09c5f0bae6bc27ef3ce933a1e0ed9464b6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/fb44e1cc6e557418387ad815780360057e40753e",
-                "reference": "fb44e1cc6e557418387ad815780360057e40753e",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/fb3fe09c5f0bae6bc27ef3ce933a1e0ed9464b6e",
+                "reference": "fb3fe09c5f0bae6bc27ef3ce933a1e0ed9464b6e",
                 "shasum": ""
             },
             "require": {
@@ -3097,7 +3103,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -3120,7 +3126,7 @@
             "homepage": "https://github.com/sebastianbergmann/type",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
-                "source": "https://github.com/sebastianbergmann/type/tree/3.1.0"
+                "source": "https://github.com/sebastianbergmann/type/tree/3.2.0"
             },
             "funding": [
                 {
@@ -3128,7 +3134,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-29T06:55:37+00:00"
+            "time": "2022-09-12T14:47:03+00:00"
         },
         {
             "name": "sebastian/version",
