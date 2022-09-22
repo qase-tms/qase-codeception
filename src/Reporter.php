@@ -9,7 +9,7 @@ use Codeception\Event\TestEvent;
 use Codeception\Extension;
 use Codeception\Events;
 use Codeception\Test\Cest;
-use Codeception\Test\Unit;
+use Codeception\Test\TestCaseWrapper;
 use Qase\Client\ApiException;
 use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\LoggerInterface;
@@ -141,8 +141,9 @@ class Reporter extends Extension
                 $class = get_class($test->getTestInstance());
                 $method = $test->getTestMethod();
                 break;
-            case $test instanceof Unit:
-                $class = get_class($test);
+            case $test instanceof TestCaseWrapper:
+                $testCase = $test->getTestCase();
+                $class = get_class($testCase);
                 $method = $test->getName();
                 break;
             default:

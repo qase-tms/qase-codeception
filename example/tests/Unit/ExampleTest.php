@@ -2,13 +2,11 @@
 
 namespace Tests\Unit;
 
+use Tests\Support\UnitTester;
+
 class ExampleTest extends \Codeception\Test\Unit
 {
-    /**
-     * @var \Tests\Support\UnitTester
-     */
-    protected $tester;
-    
+
     public function testSuccess(): void
     {
         $this->assertTrue(true);
