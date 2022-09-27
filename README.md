@@ -56,6 +56,8 @@ A test run will be performed and available at:
 https://app.qase.io/run/QASE_PROJECT_CODE
 ```
 
+If test fails, a defect will be automatically created
+
 ## Configuration
 
 Add to your `codeception.yml` extension:
