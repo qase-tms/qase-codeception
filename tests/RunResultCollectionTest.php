@@ -14,7 +14,7 @@ class RunResultCollectionTest extends TestCase
 
     protected function setUp(): void
     {
-        //Compatibility with Symfony 5
+        // Codeception 4 dependencies fix. Original comment: Compatibility with Symfony 5.
         if (!class_exists('Symfony\Component\EventDispatcher\Event') && class_exists('Symfony\Contracts\EventDispatcher\Event')) {
             class_alias('Symfony\Contracts\EventDispatcher\Event', 'Symfony\Component\EventDispatcher\Event');
         }
