@@ -2,7 +2,9 @@
 
 namespace Tests;
 
+use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
+use Codeception\Test\Cest;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
@@ -57,5 +59,81 @@ class RunResultCollectionTest extends TestCase
             ['Test (Qase ID: 4)', 'disabled', 1, false],
             ['Test (Qase ID: 5)', 'pending', 1, false],
         ];
+    }
+
+    public function testGetReturnsRunResultObject()
+    {
+        $runResult = new RunResult('PRJ', 1, true, null);
+        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
+        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $this->assertInstanceOf(RunResult::class, $runResultCollection->get());
+    }
+
+    public function testAddDoesNothingWhenReportingIsDisabled()
+    {
+        $runResult = new RunResult('PRJ', 1, true, null);
+        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
+        $runResultCollection = new RunResultCollection($runResult, false, $logger);
+
+        $test = $this->getMockBuilder(Unit::class)->getMock();
+        $event = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$test])->getMock();
+        $event->method('getTest')->willReturn($test);
+
+        $runResultCollection->add('failed', $event);
+
+        $runResultWithoutResults = $runResultCollection->get();
+        $this->assertEmpty($runResultWithoutResults->getResults());
+    }
+
+    public function testAddCorrectlyAddsResult()
+    {
+        $runResult = new RunResult('PRJ', 1, true, null);
+        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
+        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $runResultWithoutResults = $runResultCollection->get();
+        $this->assertEmpty($runResultWithoutResults->getResults());
+
+        $stackTraceMessage = 'Stack trace text';
+
+        $testUnit = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
+        $testUnit->method('getName')->willReturn('methodName');
+        $exception = new \Exception($stackTraceMessage);
+        $eventUnit = $this->getMockBuilder(FailEvent::class)
+            ->setConstructorArgs([$testUnit, 1.0, $exception])->getMock();
+        $eventUnit->method('getTest')->willReturn($testUnit);
+        $eventUnit->method('getFail')->willReturn($exception);
+        $eventUnit->method('getTime')->willReturn(1.0);
+
+        $testUnit2 = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
+        $testUnit2->method('getName')->willReturn('methodName');
+        $eventUnit2 = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$testUnit2])->getMock();
+        $eventUnit2->method('getTest')->willReturn($testUnit2);
+        $eventUnit2->method('getTime')->willReturn(0.375);
+
+        $runResultCollection->add('failed', $eventUnit);
+        $runResultCollection->add('passed', $eventUnit2);
+
+        $runResultWithResults = $runResultCollection->get();
+
+        $expectedResult = [
+            [
+                'status' => 'failed',
+                'time' => 1.0,
+                'full_test_name' => 'Unit::methodName',
+                'stacktrace' => $stackTraceMessage,
+                'defect' => true,
+            ],
+            [
+                'status' => 'passed',
+                'time' => 0.375,
+                'full_test_name' => 'Unit::methodName',
+                'stacktrace' => null,
+                'defect' => false,
+            ],
+        ];
+
+        $this->assertSame($runResultWithResults->getResults(), $expectedResult);
     }
 }
