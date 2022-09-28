@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Codeception\Event\TestEvent;
+use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
 use Qase\PhpClientUtils\ConsoleLogger;
@@ -10,6 +11,14 @@ use Qase\PhpClientUtils\RunResult;
 
 class RunResultCollectionTest extends TestCase
 {
+
+    protected function setUp(): void
+    {
+        //Compatibility with Symfony 5
+        if (!class_exists('Symfony\Component\EventDispatcher\Event') && class_exists('Symfony\Contracts\EventDispatcher\Event')) {
+            class_alias('Symfony\Contracts\EventDispatcher\Event', 'Symfony\Component\EventDispatcher\Event');
+        }
+    }
 
     /**
      * @dataProvider autoCreateDefectDataProvider
@@ -28,11 +37,12 @@ class RunResultCollectionTest extends TestCase
                 })
             );
 
+        $test = $this->getMockBuilder(Unit::class)->getMock();
         $event = $this->getMockBuilder(TestEvent::class)
-            ->getMock();
+            ->setConstructorArgs([$test])->getMock();
+        $event->method('getTest')->willReturn($test);
 
-        // TODO: Replace this line
-        $logger = new ConsoleLogger();
+        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
 
         $runResultCollection = new RunResultCollection($runResult, true, $logger);
         $runResultCollection->add($status, $event);

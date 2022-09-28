@@ -55,6 +55,7 @@ class RunResultCollection
             'time' => $event->getTime(),
             'full_test_name' => $class . '::' . $method,
             'stacktrace' => $message ?? null,
+            'defect' => $status === Reporter::FAILED,
         ]);
     }
 
