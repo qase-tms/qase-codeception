@@ -44,9 +44,7 @@ class RunResultCollectionTest extends TestCase
             ->setConstructorArgs([$test])->getMock();
         $event->method('getTest')->willReturn($test);
 
-        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
-
-        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $runResultCollection = new RunResultCollection($runResult, true, $this->createLogger());
         $runResultCollection->add($status, $event);
     }
 
@@ -64,16 +62,14 @@ class RunResultCollectionTest extends TestCase
     public function testGetReturnsRunResultObject()
     {
         $runResult = new RunResult('PRJ', 1, true, null);
-        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
-        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $runResultCollection = new RunResultCollection($runResult, true, $this->createLogger());
         $this->assertInstanceOf(RunResult::class, $runResultCollection->get());
     }
 
     public function testAddDoesNothingWhenReportingIsDisabled()
     {
         $runResult = new RunResult('PRJ', 1, true, null);
-        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
-        $runResultCollection = new RunResultCollection($runResult, false, $logger);
+        $runResultCollection = new RunResultCollection($runResult, false, $this->createLogger());
 
         $test = $this->getMockBuilder(Unit::class)->getMock();
         $event = $this->getMockBuilder(TestEvent::class)
@@ -89,8 +85,7 @@ class RunResultCollectionTest extends TestCase
     public function testAddCorrectlyAddsResult()
     {
         $runResult = new RunResult('PRJ', 1, true, null);
-        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
-        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $runResultCollection = new RunResultCollection($runResult, true, $this->createLogger());
         $runResultWithoutResults = $runResultCollection->get();
         $this->assertEmpty($runResultWithoutResults->getResults());
 
@@ -141,7 +136,7 @@ class RunResultCollectionTest extends TestCase
     public function testAddUnsupportedTestTypeCallsLoggerWriteln()
     {
         $runResult = new RunResult('PRJ', 1, true, null);
-        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
+        $logger = $this->createLogger();
         $logger->expects($this->once())
             ->method('writeln')
             ->with($this->equalTo('The test type is not supported yet: UnsupportedTest. Skipped.'));
@@ -156,4 +151,10 @@ class RunResultCollectionTest extends TestCase
         $runResultCollection = new RunResultCollection($runResult, true, $logger);
         $runResultCollection->add('passed', $event);
     }
+
+    private function createLogger(): ConsoleLogger
+    {
+        return $this->getMockBuilder(ConsoleLogger::class)->getMock();
+    }
+
 }
