@@ -105,6 +105,7 @@ class RunResultCollectionTest extends TestCase
         $eventUnit->method('getFail')->willReturn($exception);
         $eventUnit->method('getTime')->willReturn(1.0);
 
+        // TODO-item: refactor this code
         $testUnit2 = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
         $testUnit2->method('getName')->willReturn('methodName');
         $eventUnit2 = $this->getMockBuilder(TestEvent::class)
@@ -135,5 +136,24 @@ class RunResultCollectionTest extends TestCase
         ];
 
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
+    }
+
+    public function testAddUnsupportedTestTypeCallsLoggerWriteln()
+    {
+        $runResult = new RunResult('PRJ', 1, true, null);
+        $logger = $this->getMockBuilder(ConsoleLogger::class)->getMock();
+        $logger->expects($this->once())
+            ->method('writeln')
+            ->with($this->equalTo('The test type is not supported yet: UnsupportedTest. Skipped.'));
+
+        $exception = new \Exception('message');
+        $test = $this->getMockBuilder(\stdClass::class)->setMockClassName('UnsupportedTest')->getMock();
+        $event = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$test, 1.0, $exception])->getMock();
+        $event->method('getTest')->willReturn($test);
+        $event->method('getFail')->willReturn($exception);
+
+        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $runResultCollection->add('passed', $event);
     }
 }
