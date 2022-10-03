@@ -9,6 +9,7 @@ use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
 use Qase\PhpClientUtils\ConsoleLogger;
+use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\RunResult;
 
 class RunResultCollectionTest extends TestCase
@@ -61,15 +62,13 @@ class RunResultCollectionTest extends TestCase
 
     public function testGetReturnsRunResultObject()
     {
-        $runResult = new RunResult('PRJ', 1, true, null);
-        $runResultCollection = new RunResultCollection($runResult, true, $this->createLogger());
+        $runResultCollection = $this->createRunResultCollection();
         $this->assertInstanceOf(RunResult::class, $runResultCollection->get());
     }
 
     public function testAddDoesNothingWhenReportingIsDisabled()
     {
-        $runResult = new RunResult('PRJ', 1, true, null);
-        $runResultCollection = new RunResultCollection($runResult, false, $this->createLogger());
+        $runResultCollection = $this->createRunResultCollection(null, false);
 
         $test = $this->getMockBuilder(Unit::class)->getMock();
         $event = $this->getMockBuilder(TestEvent::class)
@@ -84,8 +83,7 @@ class RunResultCollectionTest extends TestCase
 
     public function testAddCorrectlyAddsResult()
     {
-        $runResult = new RunResult('PRJ', 1, true, null);
-        $runResultCollection = new RunResultCollection($runResult, true, $this->createLogger());
+        $runResultCollection = $this->createRunResultCollection();
         $runResultWithoutResults = $runResultCollection->get();
         $this->assertEmpty($runResultWithoutResults->getResults());
 
@@ -135,7 +133,6 @@ class RunResultCollectionTest extends TestCase
 
     public function testAddUnsupportedTestTypeCallsLoggerWriteln()
     {
-        $runResult = new RunResult('PRJ', 1, true, null);
         $logger = $this->createLogger();
         $logger->expects($this->once())
             ->method('writeln')
@@ -148,13 +145,30 @@ class RunResultCollectionTest extends TestCase
         $event->method('getTest')->willReturn($test);
         $event->method('getFail')->willReturn($exception);
 
-        $runResultCollection = new RunResultCollection($runResult, true, $logger);
+        $runResultCollection = $this->createRunResultCollection(null, true, $logger);
         $runResultCollection->add('passed', $event);
     }
 
     private function createLogger(): ConsoleLogger
     {
         return $this->getMockBuilder(ConsoleLogger::class)->getMock();
+    }
+
+    private function createRunResult(): RunResult
+    {
+        return new RunResult('PRJ', 1, true, null);
+    }
+
+    private function createRunResultCollection(
+        ?RunResult $runResult = null,
+        bool $isReportingEnabled = true,
+        ?LoggerInterface $logger = null
+    ): RunResultCollection
+    {
+        $runResult = $runResult ?: $this->createRunResult();
+        $logger = $logger ?: $this->createLogger();
+
+        return new RunResultCollection($runResult, $isReportingEnabled, $logger);
     }
 
 }
