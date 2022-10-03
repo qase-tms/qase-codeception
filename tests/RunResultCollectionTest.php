@@ -31,7 +31,6 @@ class RunResultCollectionTest extends TestCase
         $runResult = $this->getMockBuilder(RunResult::class)
             ->setConstructorArgs(['PRJ', null, true])
             ->getMock();
-
         $runResult->expects($this->once())
             ->method('addResult')
             ->with(
@@ -40,10 +39,7 @@ class RunResultCollectionTest extends TestCase
                 })
             );
 
-        $test = $this->getMockBuilder(Unit::class)->getMock();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test])->getMock();
-        $event->method('getTest')->willReturn($test);
+        $event = $this->createTestEvent();
 
         $runResultCollection = $this->createRunResultCollection($runResult);
         $runResultCollection->add($status, $event);
@@ -69,15 +65,11 @@ class RunResultCollectionTest extends TestCase
     public function testAddDoesNothingWhenReportingIsDisabled()
     {
         $runResultCollection = $this->createRunResultCollection(null, false);
-
-        $test = $this->getMockBuilder(Unit::class)->getMock();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test])->getMock();
-        $event->method('getTest')->willReturn($test);
-
+        $event = $this->createTestEvent();
         $runResultCollection->add('failed', $event);
 
         $runResultWithoutResults = $runResultCollection->get();
+
         $this->assertEmpty($runResultWithoutResults->getResults());
     }
 
@@ -169,6 +161,18 @@ class RunResultCollectionTest extends TestCase
         $logger = $logger ?: $this->createLogger();
 
         return new RunResultCollection($runResult, $isReportingEnabled, $logger);
+    }
+
+    private function createTestEvent(?string $className = null): TestEvent
+    {
+        $className = $className ?: Unit::class;
+
+        $test = $this->getMockBuilder($className)->getMock();
+        $event = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$test])->getMock();
+        $event->method('getTest')->willReturn($test);
+
+        return $event;
     }
 
 }
