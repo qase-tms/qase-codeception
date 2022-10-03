@@ -45,7 +45,7 @@ class RunResultCollectionTest extends TestCase
             ->setConstructorArgs([$test])->getMock();
         $event->method('getTest')->willReturn($test);
 
-        $runResultCollection = new RunResultCollection($runResult, true, $this->createLogger());
+        $runResultCollection = $this->createRunResultCollection($runResult);
         $runResultCollection->add($status, $event);
     }
 
@@ -160,8 +160,8 @@ class RunResultCollectionTest extends TestCase
     }
 
     private function createRunResultCollection(
-        ?RunResult $runResult = null,
-        bool $isReportingEnabled = true,
+        ?RunResult       $runResult = null,
+        bool             $isReportingEnabled = true,
         ?LoggerInterface $logger = null
     ): RunResultCollection
     {
