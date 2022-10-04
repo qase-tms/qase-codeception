@@ -18,7 +18,10 @@ class RunResultCollectionTest extends TestCase
     protected function setUp(): void
     {
         // Codeception 4 dependencies fix. Original comment: Compatibility with Symfony 5.
-        if (!class_exists('Symfony\Component\EventDispatcher\Event') && class_exists('Symfony\Contracts\EventDispatcher\Event')) {
+        if (
+            !class_exists('Symfony\Component\EventDispatcher\Event')
+            && class_exists('Symfony\Contracts\EventDispatcher\Event')
+        ) {
             class_alias('Symfony\Contracts\EventDispatcher\Event', 'Symfony\Component\EventDispatcher\Event');
         }
     }
@@ -81,8 +84,7 @@ class RunResultCollectionTest extends TestCase
 
         $stackTraceMessage = 'Stack trace text';
 
-        $testUnit = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
-        $testUnit->method('getName')->willReturn('methodName');
+        $testUnit = $this->createTest();
         $exception = new \Exception($stackTraceMessage);
         $eventUnit = $this->getMockBuilder(FailEvent::class)
             ->setConstructorArgs([$testUnit, 1.0, $exception])->getMock();
@@ -90,9 +92,7 @@ class RunResultCollectionTest extends TestCase
         $eventUnit->method('getFail')->willReturn($exception);
         $eventUnit->method('getTime')->willReturn(1.0);
 
-        // TODO-item: refactor this code
-        $testUnit2 = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
-        $testUnit2->method('getName')->willReturn('methodName');
+        $testUnit2 = $this->createTest();
         $eventUnit2 = $this->getMockBuilder(TestEvent::class)
             ->setConstructorArgs([$testUnit2])->getMock();
         $eventUnit2->method('getTest')->willReturn($testUnit2);
@@ -163,11 +163,22 @@ class RunResultCollectionTest extends TestCase
         return new RunResultCollection($runResult, $isReportingEnabled, $logger);
     }
 
-    private function createTestEvent(?string $className = null): TestEvent
+    /**
+     * @throws \ReflectionException
+     */
+    private function createTest(?string $className = null)
     {
         $className = $className ?: Unit::class;
+        $reflectionClass = new \ReflectionClass($className);
+        $test = $this->getMockBuilder($className)->setMockClassName($reflectionClass->getShortName())->getMock();
+        $test->method('getName')->willReturn('methodName');
 
-        $test = $this->getMockBuilder($className)->getMock();
+        return $test;
+    }
+
+    private function createTestEvent(?string $className = null): TestEvent
+    {
+        $test = $this->createTest($className);
         $event = $this->getMockBuilder(TestEvent::class)
             ->setConstructorArgs([$test])->getMock();
         $event->method('getTest')->willReturn($test);
