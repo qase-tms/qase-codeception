@@ -108,24 +108,6 @@ class RunResultCollectionTest extends TestCase
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
     }
 
-    public function testAddUnsupportedTestTypeCallsLoggerWriteln()
-    {
-        $logger = $this->createLogger();
-        $logger->expects($this->once())
-            ->method('writeln')
-            ->with($this->equalTo('The test type is not supported yet: UnsupportedTest. Skipped.'));
-
-        $exception = new \Exception('message');
-        $test = $this->getMockBuilder(\stdClass::class)->setMockClassName('UnsupportedTest')->getMock();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test, 1.0, $exception])->getMock();
-        $event->method('getTest')->willReturn($test);
-        $event->method('getFail')->willReturn($exception);
-
-        $runResultCollection = $this->createRunResultCollection(null, true, $logger);
-        $runResultCollection->add('passed', $event);
-    }
-
     private function createLogger(): ConsoleLogger
     {
         return $this->getMockBuilder(ConsoleLogger::class)->getMock();
