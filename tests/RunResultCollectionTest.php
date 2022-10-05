@@ -75,25 +75,8 @@ class RunResultCollectionTest extends TestCase
 
     public function testAddCorrectlyAddsResult()
     {
-        $runResultCollection = $this->createRunResultCollection();
-        $runResultWithoutResults = $runResultCollection->get();
-        $this->assertEmpty($runResultWithoutResults->getResults());
-
+        // Arrange
         $stackTraceMessage = 'Stack trace text';
-
-        $testUnit = $this->createTest();
-        $exception = new \Exception($stackTraceMessage);
-        $eventUnit = $this->getMockBuilder(FailEvent::class)
-            ->setConstructorArgs([$testUnit, 1.0, $exception])->getMock();
-        $eventUnit->method('getTest')->willReturn($testUnit);
-        $eventUnit->method('getFail')->willReturn($exception);
-        $eventUnit->method('getTime')->willReturn(1.0);
-
-        $runResultCollection->add('failed', $eventUnit);
-        $runResultCollection->add('passed', $this->createTestEvent(null,0.375));
-
-        $runResultWithResults = $runResultCollection->get();
-
         $expectedResult = [
             [
                 'status' => 'failed',
@@ -111,6 +94,17 @@ class RunResultCollectionTest extends TestCase
             ],
         ];
 
+        // Act: Initialize empty Collection
+        $runResultCollection = $this->createRunResultCollection();
+        // Assert: Insure results are empty
+        $runResultWithoutResults = $runResultCollection->get();
+        $this->assertEmpty($runResultWithoutResults->getResults());
+
+        // Act: Add run results to the collection
+        $runResultCollection->add('failed', $this->createFailEvent(null,1.0, $stackTraceMessage));
+        $runResultCollection->add('passed', $this->createTestEvent(null,0.375));
+        // Assert: Check collection results
+        $runResultWithResults = $runResultCollection->get();
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
     }
 
@@ -167,14 +161,26 @@ class RunResultCollectionTest extends TestCase
         return $test;
     }
 
-    private function createTestEvent(?string $className = null, float $time = 1.0, $testEvent = TestEvent::class)
+    private function createTestEvent(?string $className = null, float $time = 1.0): TestEvent
     {
         $test = $this->createTest($className);
-        $constructorArgs = [$test, $time];
-        $event = $this->getMockBuilder($testEvent)
-            ->setConstructorArgs($constructorArgs)->getMock();
+        $event = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$test, $time])->getMock();
         $event->method('getTest')->willReturn($test);
         $event->method('getTime')->willReturn($time);
+
+        return $event;
+    }
+
+    private function createFailEvent(?string $className = null, float $time = 1.0, $stackTraceMessage = ''): FailEvent
+    {
+        $test = $this->createTest($className);
+        $exception = new \Exception($stackTraceMessage);
+        $event = $this->getMockBuilder(FailEvent::class)
+            ->setConstructorArgs([$test, $time, $exception])->getMock();
+        $event->method('getTest')->willReturn($test);
+        $event->method('getTime')->willReturn($time);
+        $event->method('getFail')->willReturn($exception);
 
         return $event;
     }
