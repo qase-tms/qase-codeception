@@ -42,10 +42,8 @@ class RunResultCollectionTest extends TestCase
                 })
             );
 
-        $event = $this->createTestEvent();
-
         $runResultCollection = $this->createRunResultCollection($runResult);
-        $runResultCollection->add($status, $event);
+        $runResultCollection->add($status, $this->createTestEvent());
     }
 
     public function autoCreateDefectDataProvider(): array
@@ -68,8 +66,7 @@ class RunResultCollectionTest extends TestCase
     public function testAddDoesNothingWhenReportingIsDisabled()
     {
         $runResultCollection = $this->createRunResultCollection(null, false);
-        $event = $this->createTestEvent();
-        $runResultCollection->add('failed', $event);
+        $runResultCollection->add('failed', $this->createTestEvent());
 
         $runResultWithoutResults = $runResultCollection->get();
 
@@ -92,14 +89,8 @@ class RunResultCollectionTest extends TestCase
         $eventUnit->method('getFail')->willReturn($exception);
         $eventUnit->method('getTime')->willReturn(1.0);
 
-        $testUnit2 = $this->createTest();
-        $eventUnit2 = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$testUnit2])->getMock();
-        $eventUnit2->method('getTest')->willReturn($testUnit2);
-        $eventUnit2->method('getTime')->willReturn(0.375);
-
         $runResultCollection->add('failed', $eventUnit);
-        $runResultCollection->add('passed', $eventUnit2);
+        $runResultCollection->add('passed', $this->createTestEvent(null,0.375));
 
         $runResultWithResults = $runResultCollection->get();
 
@@ -176,12 +167,14 @@ class RunResultCollectionTest extends TestCase
         return $test;
     }
 
-    private function createTestEvent(?string $className = null): TestEvent
+    private function createTestEvent(?string $className = null, float $time = 1.0, $testEvent = TestEvent::class)
     {
         $test = $this->createTest($className);
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test])->getMock();
+        $constructorArgs = [$test, $time];
+        $event = $this->getMockBuilder($testEvent)
+            ->setConstructorArgs($constructorArgs)->getMock();
         $event->method('getTest')->willReturn($test);
+        $event->method('getTime')->willReturn($time);
 
         return $event;
     }

@@ -8,8 +8,6 @@ use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Extension;
 use Codeception\Events;
-use Codeception\Test\Cest;
-use Codeception\Test\Unit;
 use Qase\Client\ApiException;
 use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\LoggerInterface;
