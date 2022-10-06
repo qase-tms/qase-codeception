@@ -5,6 +5,7 @@ namespace Tests;
 use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Test\Test;
+use Helper\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
 use Qase\PhpClientUtils\ConsoleLogger;
@@ -31,7 +32,7 @@ class RunResultCollectionTest extends TestCase
             );
 
         $runResultCollection = $this->createRunResultCollection($runResult);
-        $runResultCollection->add($status, $this->createTestEvent());
+        $runResultCollection->add($status, $this->createUnitTestEvent());
     }
 
     public function autoCreateDefectDataProvider(): array
@@ -54,7 +55,7 @@ class RunResultCollectionTest extends TestCase
     public function testResultCollectionIsEmptyWhenReportingIsDisabled()
     {
         $runResultCollection = $this->createRunResultCollection(isReportingEnabled: false);
-        $runResultCollection->add('failed', $this->createTestEvent());
+        $runResultCollection->add('failed', $this->createUnitTestEvent());
 
         $runResult = $runResultCollection->get();
 
@@ -89,8 +90,8 @@ class RunResultCollectionTest extends TestCase
         $this->assertEmpty($runResultWithoutResults->getResults());
 
         // Act: Add run results to the collection
-        $runResultCollection->add('failed', $this->createFailEvent(null, 1.0, $stackTraceMessage));
-        $runResultCollection->add('passed', $this->createTestEvent(null, 0.375));
+        $runResultCollection->add('failed', $this->createUnitTestFailEvent($stackTraceMessage, time: 1.0));
+        $runResultCollection->add('passed', $this->createUnitTestEvent(time: 0.375));
         // Assert: Check collection results
         $runResultWithResults = $runResultCollection->get();
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
@@ -118,22 +119,17 @@ class RunResultCollectionTest extends TestCase
         return $this->getMockBuilder(ConsoleLogger::class)->getMock();
     }
 
-    /**
-     * @throws \ReflectionException
-     */
-    private function createTest(?string $className = null)
+    private function createUnitTest()
     {
-        $className = $className ?: Test::class;
-        $reflectionClass = new \ReflectionClass($className);
-        $test = $this->getMockBuilder($className)->setMockClassName($reflectionClass->getShortName())->getMock();
+        $test = $this->getMockBuilder(Test::class)->setMockClassName('Test')->getMock();
         $test->method('getName')->willReturn('methodName');
 
         return $test;
     }
 
-    private function createTestEvent(?string $className = null, float $time = 1.0): TestEvent
+    private function createUnitTestEvent(float $time = 1.0): TestEvent
     {
-        $test = $this->createTest($className);
+        $test = $this->createUnitTest();
         $event = $this->getMockBuilder(TestEvent::class)
             ->setConstructorArgs([$test, $time])->getMock();
         $event->method('getTest')->willReturn($test);
@@ -142,9 +138,9 @@ class RunResultCollectionTest extends TestCase
         return $event;
     }
 
-    private function createFailEvent(?string $className = null, float $time = 1.0, $stackTraceMessage = ''): FailEvent
+    private function createUnitTestFailEvent(string $stackTraceMessage, float $time): FailEvent
     {
-        $test = $this->createTest($className);
+        $test = $this->createUnitTest();
         $exception = new \Exception($stackTraceMessage);
         $event = $this->getMockBuilder(FailEvent::class)
             ->setConstructorArgs([$test, $exception, $time])->getMock();
