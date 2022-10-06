@@ -38,13 +38,13 @@ class RunResultCollection
                 $class = get_class($test->getTestInstance());
                 $method = $test->getTestMethod();
                 break;
-            case $test instanceof Test:
-                $class = get_class($test);
-                $method = $test->getName();
-                break;
             case $test instanceof TestCaseWrapper:
                 $testCase = $test->getTestCase();
                 $class = get_class($testCase);
+                $method = $test->getName();
+                break;
+            case $test instanceof Test:
+                $class = get_class($test);
                 $method = $test->getName();
                 break;
             default:
