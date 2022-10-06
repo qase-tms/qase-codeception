@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "307617a25ffb7db3dcc6052a2c390b1c",
+    "content-hash": "197e65fb41b3211cddcbe39e9d019c1b",
     "packages": [],
     "packages-dev": [
         {
@@ -241,30 +241,28 @@
         },
         {
             "name": "codeception/lib-innerbrowser",
-            "version": "3.1.2",
+            "version": "3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-innerbrowser.git",
-                "reference": "bc91300ad6794c3ac5c83d80ea2460ad7a57250c"
+                "reference": "10482f7e34c0537bf5b87bc82a3d65a1842a8b4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-innerbrowser/zipball/bc91300ad6794c3ac5c83d80ea2460ad7a57250c",
-                "reference": "bc91300ad6794c3ac5c83d80ea2460ad7a57250c",
+                "url": "https://api.github.com/repos/Codeception/lib-innerbrowser/zipball/10482f7e34c0537bf5b87bc82a3d65a1842a8b4f",
+                "reference": "10482f7e34c0537bf5b87bc82a3d65a1842a8b4f",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": "*@dev",
+                "codeception/codeception": "^5.0",
                 "codeception/lib-web": "^1.0.1",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "php": "^8.0",
+                "phpunit/phpunit": "^9.5",
                 "symfony/browser-kit": "^4.4.24 || ^5.4 || ^6.0",
                 "symfony/dom-crawler": "^4.4.30 || ^5.4 || ^6.0"
-            },
-            "conflict": {
-                "codeception/codeception": "<5.0.0-alpha3"
             },
             "require-dev": {
                 "codeception/util-universalframework": "dev-master"
@@ -296,9 +294,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/lib-innerbrowser/issues",
-                "source": "https://github.com/Codeception/lib-innerbrowser/tree/3.1.2"
+                "source": "https://github.com/Codeception/lib-innerbrowser/tree/3.1.3"
             },
-            "time": "2022-04-09T08:43:01+00:00"
+            "time": "2022-10-03T15:33:34+00:00"
         },
         {
             "name": "codeception/lib-web",
@@ -2107,11 +2105,11 @@
         },
         {
             "name": "qase/codeception-reporter",
-            "version": "dev-codeception5support",
+            "version": "dev-codeception5support_acd2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-codeception",
-                "reference": "e1c90ae0951ee1750ce70f472e423bffe080e082"
+                "reference": "06d88592a7e16bb2503a8ac7eb2e0749e3412412"
             },
             "require": {
                 "codeception/codeception": "^5.0",
@@ -2127,6 +2125,11 @@
             "autoload": {
                 "psr-4": {
                     "Qase\\Codeception\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "tests/"
                 }
             },
             "license": [
@@ -2147,7 +2150,7 @@
                 "reporter",
                 "tms"
             ],
-            "time": "2022-10-03T08:19:15+00:00"
+            "time": "2022-10-06T12:32:33+00:00"
         },
         {
             "name": "qase/php-client-utils",
@@ -4660,14 +4663,7 @@
             "time": "2021-12-12T23:22:04+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "qase/codeception-reporter",
-            "version": "dev-codeception5support",
-            "alias": "2.0.0",
-            "alias_normalized": "2.0.0.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "qase/codeception-reporter": 20
