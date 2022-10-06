@@ -24,9 +24,9 @@ class Reporter extends Extension
 {
     private const ROOT_SUITE_TITLE = 'Codeception tests';
 
-    private const PASSED = 'passed';
-    private const SKIPPED = 'skipped';
-    private const FAILED = 'failed';
+    public const PASSED = 'passed';
+    public const SKIPPED = 'skipped';
+    public const FAILED = 'failed';
 
     private RunResult $runResult;
     private Repository $repo;
@@ -166,13 +166,13 @@ class Reporter extends Extension
     private function validateProjectCode(): void
     {
         try {
-            $this->logger->write("checking if project '{$this->runResult->getProjectCode()}' exists... ");
+            $this->logger->write("checking if project '{$this->reporterConfig->getProjectCode()}' exists... ");
 
-            $this->repo->getProjectsApi()->getProject($this->runResult->getProjectCode());
+            $this->repo->getProjectsApi()->getProject($this->reporterConfig->getProjectCode());
 
             $this->logger->writeln('OK', '');
         } catch (ApiException $e) {
-            $this->logger->writeln("could not find project '{$this->runResult->getProjectCode()}'");
+            $this->logger->writeln("could not find project '{$this->reporterConfig->getProjectCode()}'");
 
             throw $e;
         }
@@ -187,7 +187,7 @@ class Reporter extends Extension
         try {
             $this->logger->write("checking if Environment Id '{$this->reporterConfig->getEnvironmentId()}' exists... ");
 
-            $this->repo->getEnvironmentsApi()->getEnvironment($this->runResult->getProjectCode(), $this->reporterConfig->getEnvironmentId());
+            $this->repo->getEnvironmentsApi()->getEnvironment($this->reporterConfig->getProjectCode(), $this->reporterConfig->getEnvironmentId());
 
             $this->logger->writeln('OK', '');
         } catch (ApiException $e) {
