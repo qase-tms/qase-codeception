@@ -5,6 +5,7 @@ namespace Tests;
 use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Test\Cest;
+use Codeception\Test\Test;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
@@ -57,23 +58,23 @@ class RunResultCollectionTest extends TestCase
         ];
     }
 
-    public function testGetReturnsRunResultObject()
+    public function testGettingRunResultFromCollection()
     {
         $runResultCollection = $this->createRunResultCollection();
         $this->assertInstanceOf(RunResult::class, $runResultCollection->get());
     }
 
-    public function testAddDoesNothingWhenReportingIsDisabled()
+    public function testResultCollectionIsEmptyWhenReportingIsDisabled()
     {
         $runResultCollection = $this->createRunResultCollection(null, false);
         $runResultCollection->add('failed', $this->createTestEvent());
 
-        $runResultWithoutResults = $runResultCollection->get();
+        $runResult = $runResultCollection->get();
 
-        $this->assertEmpty($runResultWithoutResults->getResults());
+        $this->assertEmpty($runResult->getResults());
     }
 
-    public function testAddCorrectlyAddsResult()
+    public function testAddingResults()
     {
         // Arrange
         $stackTraceMessage = 'Stack trace text';
@@ -101,21 +102,11 @@ class RunResultCollectionTest extends TestCase
         $this->assertEmpty($runResultWithoutResults->getResults());
 
         // Act: Add run results to the collection
-        $runResultCollection->add('failed', $this->createFailEvent(null,1.0, $stackTraceMessage));
-        $runResultCollection->add('passed', $this->createTestEvent(null,0.375));
+        $runResultCollection->add('failed', $this->createFailEvent(null, 1.0, $stackTraceMessage));
+        $runResultCollection->add('passed', $this->createTestEvent(null, 0.375));
         // Assert: Check collection results
         $runResultWithResults = $runResultCollection->get();
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
-    }
-
-    private function createLogger(): ConsoleLogger
-    {
-        return $this->getMockBuilder(ConsoleLogger::class)->getMock();
-    }
-
-    private function createRunResult(): RunResult
-    {
-        return new RunResult('PRJ', 1, true, null);
     }
 
     private function createRunResultCollection(
@@ -130,17 +121,14 @@ class RunResultCollectionTest extends TestCase
         return new RunResultCollection($runResult, $isReportingEnabled, $logger);
     }
 
-    /**
-     * @throws \ReflectionException
-     */
-    private function createTest(?string $className = null)
+    private function createRunResult(): RunResult
     {
-        $className = $className ?: Unit::class;
-        $reflectionClass = new \ReflectionClass($className);
-        $test = $this->getMockBuilder($className)->setMockClassName($reflectionClass->getShortName())->getMock();
-        $test->method('getName')->willReturn('methodName');
+        return new RunResult('PRJ', 1, true, null);
+    }
 
-        return $test;
+    private function createLogger(): ConsoleLogger
+    {
+        return $this->getMockBuilder(ConsoleLogger::class)->getMock();
     }
 
     private function createTestEvent(?string $className = null, float $time = 1.0): TestEvent
@@ -165,6 +153,19 @@ class RunResultCollectionTest extends TestCase
         $event->method('getFail')->willReturn($exception);
 
         return $event;
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    private function createTest(?string $className = null)
+    {
+        $className = $className ?: Unit::class;
+        $reflectionClass = new \ReflectionClass($className);
+        $test = $this->getMockBuilder($className)->setMockClassName($reflectionClass->getShortName())->getMock();
+        $test->method('getName')->willReturn('methodName');
+
+        return $test;
     }
 
 }

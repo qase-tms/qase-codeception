@@ -13,8 +13,8 @@ use Qase\PhpClientUtils\RunResult;
 
 class RunResultCollection
 {
-    private RunResult $runResult;
-    private LoggerInterface $logger;
+    public RunResult $runResult;
+    public LoggerInterface $logger;
     private bool $isReportingEnabled;
 
     public function __construct(RunResult $runResult, bool $isReportingEnabled, LoggerInterface $logger)
@@ -22,6 +22,11 @@ class RunResultCollection
         $this->isReportingEnabled = $isReportingEnabled;
         $this->runResult = $runResult;
         $this->logger = $logger;
+    }
+
+    public function get(): RunResult
+    {
+        return $this->runResult;
     }
 
     public function add(string $status, TestEvent $event): void
@@ -57,10 +62,5 @@ class RunResultCollection
             'stacktrace' => $message ?? null,
             'defect' => $status === Reporter::FAILED,
         ]);
-    }
-
-    public function get(): RunResult
-    {
-        return $this->runResult;
     }
 }
