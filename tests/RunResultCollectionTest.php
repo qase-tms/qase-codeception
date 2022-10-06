@@ -66,7 +66,8 @@ class RunResultCollectionTest extends TestCase
 
     public function testResultCollectionIsEmptyWhenReportingIsDisabled()
     {
-        $runResultCollection = $this->createRunResultCollection(null, false);
+        $isReportingEnabled = false;
+        $runResultCollection = $this->createRunResultCollection(null, $isReportingEnabled);
         $runResultCollection->add('failed', $this->createTestEvent());
 
         $runResult = $runResultCollection->get();
