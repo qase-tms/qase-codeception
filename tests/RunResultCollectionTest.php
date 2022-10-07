@@ -150,5 +150,4 @@ class RunResultCollectionTest extends TestCase
 
         return $event;
     }
-
 }
