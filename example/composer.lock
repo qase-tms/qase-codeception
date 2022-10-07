@@ -2109,7 +2109,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-codeception",
-                "reference": "f0b03fe29615b13352153ed25c6976e3221e2b4c"
+                "reference": "207461a4b37e60242070b4369b37597f98579d6b"
             },
             "require": {
                 "codeception/codeception": "^5.0",
@@ -2150,7 +2150,7 @@
                 "reporter",
                 "tms"
             ],
-            "time": "2022-10-06T18:11:51+00:00"
+            "time": "2022-10-07T11:41:08+00:00"
         },
         {
             "name": "qase/php-client-utils",
