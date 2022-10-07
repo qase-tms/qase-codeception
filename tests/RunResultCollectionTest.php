@@ -166,5 +166,4 @@ class RunResultCollectionTest extends TestCase
 
         return $test;
     }
-
 }
