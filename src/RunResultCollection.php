@@ -14,15 +14,12 @@ use Qase\PhpClientUtils\RunResult;
 
 class RunResultCollection
 {
-    private RunResult $runResult;
-    private LoggerInterface $logger;
-    private bool $isReportingEnabled;
-
-    public function __construct(RunResult $runResult, bool $isReportingEnabled, LoggerInterface $logger)
+    public function __construct(
+        private RunResult       $runResult,
+        private bool            $isReportingEnabled,
+        private LoggerInterface $logger
+    )
     {
-        $this->isReportingEnabled = $isReportingEnabled;
-        $this->runResult = $runResult;
-        $this->logger = $logger;
     }
 
     public function get(): RunResult
