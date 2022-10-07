@@ -124,7 +124,10 @@ class RunResultCollectionTest extends TestCase
 
     private function createRunResult(): RunResult
     {
-        return new RunResult('PRJ', 1, true, null);
+        $runId = 1;
+        $completeRunAfterSubmit = true;
+
+        return new RunResult('PRJ', $runId, $completeRunAfterSubmit);
     }
 
     private function createLogger(): ConsoleLogger
