@@ -132,8 +132,8 @@ class RunResultCollectionTest extends TestCase
 
     private function createCestTest()
     {
-        $testInstance = $this->getMockBuilder(SomeCest::class)->setMockClassName('Cest')->getMock();
-        $testInstance->method('string')->willReturn('');
+        $testInstance = $this->getMockBuilder(\stdClass::class)->setMockClassName('Cest')
+            ->addMethods(['string'])->getMock();
 
         $test = $this->getMockBuilder(Cest::class)
             ->setConstructorArgs([$testInstance, 'string', 'string'])->getMock();
