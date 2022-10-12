@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
+use Codeception\Test\Cest;
 use Codeception\Test\Test;
 use Helper\Unit;
 use PHPUnit\Framework\TestCase;
@@ -77,7 +80,7 @@ class RunResultCollectionTest extends TestCase
             [
                 'status' => 'passed',
                 'time' => 0.375,
-                'full_test_name' => 'Test::methodName',
+                'full_test_name' => 'Cest::methodName',
                 'stacktrace' => null,
                 'defect' => false,
             ],
@@ -91,7 +94,7 @@ class RunResultCollectionTest extends TestCase
 
         // Act: Add run results to the collection
         $runResultCollection->add('failed', $this->createUnitTestFailEvent($stackTraceMessage, time: 1.0));
-        $runResultCollection->add('passed', $this->createUnitTestEvent(time: 0.375));
+        $runResultCollection->add('passed', $this->createCestTestEvent(time: 0.375));
         // Assert: Check collection results
         $runResultWithResults = $runResultCollection->get();
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
@@ -127,9 +130,33 @@ class RunResultCollectionTest extends TestCase
         return $test;
     }
 
+    private function createCestTest()
+    {
+        $testInstance = $this->getMockBuilder(SomeCest::class)->setMockClassName('Cest')->getMock();
+        $testInstance->method('string')->willReturn('');
+
+        $test = $this->getMockBuilder(Cest::class)
+            ->setConstructorArgs([$testInstance, 'string', 'string'])->getMock();
+        $test->method('getTestMethod')->willReturn('methodName');
+        $test->method('getTestInstance')->willReturn($testInstance);
+
+        return $test;
+    }
+
     private function createUnitTestEvent(float $time = 1.0): TestEvent
     {
         $test = $this->createUnitTest();
+        $event = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$test, $time])->getMock();
+        $event->method('getTest')->willReturn($test);
+        $event->method('getTime')->willReturn($time);
+
+        return $event;
+    }
+
+    private function createCestTestEvent(float $time = 1.0): TestEvent
+    {
+        $test = $this->createCestTest();
         $event = $this->getMockBuilder(TestEvent::class)
             ->setConstructorArgs([$test, $time])->getMock();
         $event->method('getTest')->willReturn($test);
