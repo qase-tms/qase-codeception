@@ -6,6 +6,7 @@ namespace Tests;
 
 use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
+use Codeception\Test\Cept;
 use Codeception\Test\Cest;
 use Codeception\Test\Test;
 use Helper\Unit;
@@ -100,6 +101,17 @@ class RunResultCollectionTest extends TestCase
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
     }
 
+    public function testAddingUnsupportedTestType()
+    {
+        $logger = $this->createLogger();
+        $logger->expects($this->once())
+            ->method('writeln')
+            ->with($this->equalTo('The test type is not supported yet: UnsupportedTest. Skipped.'));
+
+        $runResultCollection = $this->createRunResultCollection(logger: $logger);
+        $runResultCollection->add('passed', $this->createCeptTestEvent());
+    }
+
     private function createRunResultCollection(
         ?RunResult       $runResult = null,
         bool             $isReportingEnabled = true,
@@ -141,6 +153,23 @@ class RunResultCollectionTest extends TestCase
         $test->method('getTestInstance')->willReturn($testInstance);
 
         return $test;
+    }
+
+    private function createCeptTest()
+    {
+        $test = $this->getMockBuilder(Cept::class)->setMockClassName('Cept')
+            ->setConstructorArgs(['', ''])->getMock();
+
+        return $test;
+    }
+
+    private function createCeptTestEvent(float $time = 1.0): TestEvent
+    {
+        $test = $this->createCeptTest();
+        $event = $this->getMockBuilder(TestEvent::class)
+            ->setConstructorArgs([$test, $time])->getMock();
+
+        return $event;
     }
 
     private function createUnitTestEvent(float $time = 1.0): TestEvent
