@@ -7,7 +7,7 @@ namespace Qase\Codeception;
 use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Test\Cest;
-use Codeception\Test\Test;
+use Codeception\Test\Unit;
 use Codeception\Test\TestCaseWrapper;
 use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\RunResult;
@@ -45,7 +45,7 @@ class RunResultCollection
                 $class = get_class($testCase);
                 $method = $test->getName();
                 break;
-            case $test instanceof Test:
+            case $test instanceof Unit:
                 $class = get_class($test);
                 $method = $test->getName();
                 break;
