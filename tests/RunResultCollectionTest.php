@@ -8,7 +8,8 @@ use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Test\Cept;
 use Codeception\Test\Cest;
-use Codeception\Test\Unit;
+use Codeception\Test\Test;
+use Helper\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
 use Qase\PhpClientUtils\ConsoleLogger;
@@ -73,7 +74,7 @@ class RunResultCollectionTest extends TestCase
             [
                 'status' => 'failed',
                 'time' => 1.0,
-                'full_test_name' => 'Unit::methodName',
+                'full_test_name' => 'Test::methodName',
                 'stacktrace' => $stackTraceMessage,
                 'defect' => true,
             ],
@@ -135,7 +136,7 @@ class RunResultCollectionTest extends TestCase
 
     private function createUnitTest()
     {
-        $test = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
+        $test = $this->getMockBuilder(Test::class)->setMockClassName('Test')->getMock();
         $test->method('getName')->willReturn('methodName');
 
         return $test;
