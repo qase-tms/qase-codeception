@@ -9,6 +9,7 @@ use Codeception\Event\TestEvent;
 use Codeception\Test\Cept;
 use Codeception\Test\Cest;
 use Codeception\Test\TestCaseWrapper;
+use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
 use Qase\PhpClientUtils\ConsoleLogger;
@@ -135,7 +136,11 @@ class RunResultCollectionTest extends TestCase
 
     private function createUnitTest()
     {
-        $test = $this->getMockBuilder(TestCaseWrapper::class)->setMockClassName('TestCaseWrapper')->getMock();
+        $unitTest = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
+        $unitTest->method('dataName')->willReturn('');
+        $unitTest->method('getName')->willReturn('getMetadata');
+        $test = $this->getMockBuilder(TestCaseWrapper::class)->setMockClassName('TestCaseWrapper')
+            ->setConstructorArgs([$unitTest])->getMock();
         $test->method('getName')->willReturn('methodName');
 
         return $test;
