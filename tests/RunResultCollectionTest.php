@@ -105,7 +105,7 @@ class RunResultCollectionTest extends TestCase
         $logger = $this->createLogger();
         $logger->expects($this->once())
             ->method('writeln')
-            ->with($this->equalTo('The test type is not supported yet: UnsupportedTest. Skipped.'));
+            ->with($this->equalTo('The test type is not supported yet: Cept. Skipped.'));
 
         $runResultCollection = $this->createRunResultCollection(logger: $logger);
         $runResultCollection->add('passed', $this->createCeptTestEvent());
@@ -167,6 +167,8 @@ class RunResultCollectionTest extends TestCase
         $test = $this->createCeptTest();
         $event = $this->getMockBuilder(TestEvent::class)
             ->setConstructorArgs([$test, $time])->getMock();
+        $event->method('getTest')->willReturn($test);
+        $event->method('getTime')->willReturn($time);
 
         return $event;
     }
