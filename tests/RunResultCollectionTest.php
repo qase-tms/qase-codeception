@@ -8,6 +8,7 @@ use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Test\Cept;
 use Codeception\Test\Cest;
+use Codeception\Test\Test;
 use Codeception\Test\TestCaseWrapper;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +37,7 @@ class RunResultCollectionTest extends TestCase
             );
 
         $runResultCollection = $this->createRunResultCollection($runResult);
-        $runResultCollection->add($status, $this->createUnitTestEvent());
+        $runResultCollection->add($status, $this->createTestEvent($this->createUnitTest()));
     }
 
     public function autoCreateDefectDataProvider(): array
@@ -59,7 +60,7 @@ class RunResultCollectionTest extends TestCase
     public function testResultCollectionIsEmptyWhenReportingIsDisabled()
     {
         $runResultCollection = $this->createRunResultCollection(isReportingEnabled: false);
-        $runResultCollection->add('failed', $this->createUnitTestEvent());
+        $runResultCollection->add('failed', $this->createTestEvent($this->createUnitTest()));
 
         $runResult = $runResultCollection->get();
 
@@ -95,7 +96,7 @@ class RunResultCollectionTest extends TestCase
 
         // Act: Add run results to the collection
         $runResultCollection->add('failed', $this->createUnitTestFailEvent($stackTraceMessage, time: 1.0));
-        $runResultCollection->add('passed', $this->createCestTestEvent(time: 0.375));
+        $runResultCollection->add('passed', $this->createTestEvent($this->createCestTest(), time: 0.375));
         // Assert: Check collection results
         $runResultWithResults = $runResultCollection->get();
         $this->assertSame($runResultWithResults->getResults(), $expectedResult);
@@ -109,7 +110,7 @@ class RunResultCollectionTest extends TestCase
             ->with($this->equalTo('The test type is not supported yet: Cept. Skipped.'));
 
         $runResultCollection = $this->createRunResultCollection(logger: $logger);
-        $runResultCollection->add('passed', $this->createCeptTestEvent());
+        $runResultCollection->add('passed', $this->createTestEvent($this->createCeptTest()));
     }
 
     private function createRunResultCollection(
@@ -168,31 +169,8 @@ class RunResultCollectionTest extends TestCase
         return $test;
     }
 
-    private function createCeptTestEvent(float $time = 1.0): TestEvent
+    private function createTestEvent(Test $test, float $time = 1.0): TestEvent
     {
-        $test = $this->createCeptTest();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test, $time])->getMock();
-        $event->method('getTest')->willReturn($test);
-        $event->method('getTime')->willReturn($time);
-
-        return $event;
-    }
-
-    private function createUnitTestEvent(float $time = 1.0): TestEvent
-    {
-        $test = $this->createUnitTest();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test, $time])->getMock();
-        $event->method('getTest')->willReturn($test);
-        $event->method('getTime')->willReturn($time);
-
-        return $event;
-    }
-
-    private function createCestTestEvent(float $time = 1.0): TestEvent
-    {
-        $test = $this->createCestTest();
         $event = $this->getMockBuilder(TestEvent::class)
             ->setConstructorArgs([$test, $time])->getMock();
         $event->method('getTest')->willReturn($test);
