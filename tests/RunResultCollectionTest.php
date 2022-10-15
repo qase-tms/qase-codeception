@@ -74,7 +74,7 @@ class RunResultCollectionTest extends TestCase
             [
                 'status' => 'failed',
                 'time' => 1.0,
-                'full_test_name' => 'TestCaseWrapper::methodName',
+                'full_test_name' => 'Unit::methodName',
                 'stacktrace' => $stackTraceMessage,
                 'defect' => true,
             ],
@@ -142,6 +142,7 @@ class RunResultCollectionTest extends TestCase
         $test = $this->getMockBuilder(TestCaseWrapper::class)->setMockClassName('TestCaseWrapper')
             ->setConstructorArgs([$unitTest])->getMock();
         $test->method('getName')->willReturn('methodName');
+        $test->method('getTestCase')->willReturn($unitTest);
 
         return $test;
     }
