@@ -6,8 +6,6 @@ namespace Tests;
 
 use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
-use Codeception\Test\Cest;
-use Codeception\Test\Test;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
