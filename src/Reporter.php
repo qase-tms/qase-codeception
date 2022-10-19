@@ -22,8 +22,8 @@ class Reporter extends Extension
 {
     private const ROOT_SUITE_TITLE = 'Codeception tests';
 
-    public const PASSED = 'passed';
-    public const SKIPPED = 'skipped';
+    private const PASSED = 'passed';
+    private const SKIPPED = 'skipped';
     public const FAILED = 'failed';
 
     private Repository $repo;
