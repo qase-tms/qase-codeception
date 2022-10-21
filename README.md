@@ -6,12 +6,12 @@
 
 #### For Codeception 5:
 ```bash
-composer require qase/codeception-reporter ^2
+composer require qase/codeception-reporter:^2
 ```
 
 #### For Codeception 4:
 ```bash
-composer require qase/codeception-reporter ^1
+composer require qase/codeception-reporter:^1
 ```
 
 ## Example of usage

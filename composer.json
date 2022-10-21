@@ -18,7 +18,7 @@
         "codeception"
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "qase/api": "v1.2.0",
         "qase/php-client-utils": "^1.0.3",
