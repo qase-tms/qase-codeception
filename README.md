@@ -4,12 +4,12 @@
 
 ## How to integrate
 
-### For Codeception 5:
+#### For Codeception 5:
 ```bash
 composer require qase/codeception-reporter ^2
 ```
 
-### For Codeception 4:
+#### For Codeception 4:
 ```bash
 composer require qase/codeception-reporter ^1
 ```
