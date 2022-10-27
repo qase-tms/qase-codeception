@@ -47,7 +47,7 @@ class Reporter extends Extension
     {
         parent::_initialize();
 
-        $this->reporterConfig = new Config();
+        $this->reporterConfig = new Config('Codeception');
         if ($this->reporterConfig->isLoggingEnabled()) {
             $this->logger = new ConsoleLogger();
         } else {
@@ -59,7 +59,6 @@ class Reporter extends Extension
             $this->logger->writeln('Reporting to Qase.io is disabled. Set the environment variable QASE_REPORT=1 to enable it.');
             return;
         }
-        $this->reporterConfig->validate();
 
         $this->headerManager = new HeaderManager();
         $this->repo = new Repository();
@@ -70,18 +69,8 @@ class Reporter extends Extension
             $this->headerManager->getClientHeaders()
         );
 
-        $runId = $this->reporterConfig->getRunId();
-        if (!$runId) {
-            $runId = $this->resultHandler->createRunId($this->reporterConfig->getProjectCode(), $this->reporterConfig->getEnvironmentId());
-            putenv('QASE_RUN_ID=' . $runId);
-        }
-
-        $runResult = new RunResult(
-            $this->reporterConfig->getProjectCode(),
-            $runId,
-            $this->reporterConfig->getCompleteRunAfterSubmit(),
-            $this->reporterConfig->getEnvironmentId(),
-        );
+        // TODO-item: Deal with runId, passed to RunResult earlier (see deleted `if` above)
+        $runResult = new RunResult($this->config);
 
         $this->runResultCollection = new RunResultCollection(
             $runResult,

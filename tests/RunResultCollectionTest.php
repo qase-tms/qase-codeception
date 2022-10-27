@@ -9,6 +9,7 @@ use Codeception\Event\TestEvent;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
+use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\ConsoleLogger;
 use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\RunResult;
@@ -125,9 +126,7 @@ class RunResultCollectionTest extends TestCase
     private function createRunResult(): RunResult
     {
         $runId = 1;
-        $completeRunAfterSubmit = true;
-
-        return new RunResult('PRJ', $runId, $completeRunAfterSubmit);
+        return new RunResult($this->createConfig('PRJ', $runId));
     }
 
     private function createLogger(): ConsoleLogger
@@ -165,5 +164,16 @@ class RunResultCollectionTest extends TestCase
         $event->method('getFail')->willReturn($exception);
 
         return $event;
+    }
+
+    private function createConfig(string $projectCode = 'PRJ', ?int $runId = null): Config
+    {
+        $config = $this->getMockBuilder(Config::class)
+            ->setConstructorArgs(['Reporter'])->getMock();
+        $config->method('getRunId')->willReturn($runId);
+        $config->method('getProjectCode')->willReturn($projectCode);
+        $config->method('getEnvironmentId')->willReturn(null);
+
+        return $config;
     }
 }

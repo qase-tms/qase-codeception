@@ -17,6 +17,7 @@ class RunResultCollection
     public LoggerInterface $logger;
     private bool $isReportingEnabled;
 
+    // TODO-question: Why do we have third argument Logger here, but not in PHPUnit reporter?
     public function __construct(RunResult $runResult, bool $isReportingEnabled, LoggerInterface $logger)
     {
         $this->isReportingEnabled = $isReportingEnabled;
