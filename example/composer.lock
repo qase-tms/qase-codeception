@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48e46f98c34d423ebbb7ff648f92e84d",
+    "content-hash": "afe5efe2a10454d39bf875ff86092418",
     "packages": [],
     "packages-dev": [
         {
@@ -835,16 +835,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.1",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379"
+                "reference": "67c26b443f348a51926030c83481b85718457d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/69568e4293f4fa993f3b0e51c9723e1e17c41379",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/67c26b443f348a51926030c83481b85718457d3d",
+                "reference": "67c26b443f348a51926030c83481b85718457d3d",
                 "shasum": ""
             },
             "require": {
@@ -934,7 +934,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.3"
             },
             "funding": [
                 {
@@ -950,7 +950,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T14:45:39+00:00"
+            "time": "2022-10-26T14:07:24+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1255,16 +1255,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.17",
+            "version": "9.2.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "aa94dc41e8661fe90c7316849907cba3007b10d8"
+                "reference": "12fddc491826940cf9b7e88ad9664cf51f0f6d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/aa94dc41e8661fe90c7316849907cba3007b10d8",
-                "reference": "aa94dc41e8661fe90c7316849907cba3007b10d8",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/12fddc491826940cf9b7e88ad9664cf51f0f6d0a",
+                "reference": "12fddc491826940cf9b7e88ad9664cf51f0f6d0a",
                 "shasum": ""
             },
             "require": {
@@ -1320,7 +1320,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.17"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.18"
             },
             "funding": [
                 {
@@ -1328,7 +1328,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-30T12:24:04+00:00"
+            "time": "2022-10-27T13:35:33+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1573,16 +1573,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.25",
+            "version": "9.5.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d"
+                "reference": "851867efcbb6a1b992ec515c71cdcf20d895e9d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d",
-                "reference": "3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/851867efcbb6a1b992ec515c71cdcf20d895e9d2",
+                "reference": "851867efcbb6a1b992ec515c71cdcf20d895e9d2",
                 "shasum": ""
             },
             "require": {
@@ -1655,7 +1655,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.25"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.26"
             },
             "funding": [
                 {
@@ -1671,7 +1671,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-25T03:44:45+00:00"
+            "time": "2022-10-28T06:00:21+00:00"
         },
         {
             "name": "psr/container",
@@ -2007,18 +2007,18 @@
         },
         {
             "name": "qase/codeception-reporter",
-            "version": "dev-auto_create_defect_support",
+            "version": "dev-emakarkin/Feature12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-codeception",
-                "reference": "b8a3cc87ce538cbe49ae5c2fe6f646b3198ea449"
+                "reference": "a86055e4a9076c4282468a779e259868f08d4a6c"
             },
             "require": {
                 "codeception/codeception": "^3.0 || ^4.0",
                 "ext-json": "*",
                 "php": "^7.4 || ^8.0",
                 "qase/api": "v1.2.0",
-                "qase/php-client-utils": "^1.0.3"
+                "qase/php-client-utils": "dev-emakarkin/PHPUnit32 as v1.0.4"
             },
             "require-dev": {
                 "codeception/module-asserts": "^1.0.0",
@@ -2054,21 +2054,15 @@
                 "reporter",
                 "tms"
             ],
-            "time": "2022-10-19T13:17:45+00:00"
+            "time": "2022-10-29T17:44:33+00:00"
         },
         {
             "name": "qase/php-client-utils",
-            "version": "v1.0.3",
+            "version": "dev-emakarkin/PHPUnit32",
             "source": {
                 "type": "git",
-                "url": "https://github.com/qase-tms/qase-php-client-utils.git",
-                "reference": "556a43910ecb6df2a3a76842bc56d93bb83f5a32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-php-client-utils/zipball/556a43910ecb6df2a3a76842bc56d93bb83f5a32",
-                "reference": "556a43910ecb6df2a3a76842bc56d93bb83f5a32",
-                "shasum": ""
+                "url": "https://github.com/in4s/qase-php-client-utils",
+                "reference": "2ad2689459b73a8e1eb9f92ccbf446a204f9c9da"
             },
             "require": {
                 "qase/api": "v1.2.0"
@@ -2082,15 +2076,15 @@
                     "Qase\\PhpClientUtils\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "tests/"
+                }
+            },
             "license": [
                 "Apache-2.0"
             ],
-            "support": {
-                "issues": "https://github.com/qase-tms/qase-php-client-utils/issues",
-                "source": "https://github.com/qase-tms/qase-php-client-utils/tree/v1.0.3"
-            },
-            "time": "2022-09-14T21:25:34+00:00"
+            "time": "2022-10-27T17:13:13+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3173,16 +3167,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v5.4.14",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "984ea2c0f45f42dfed01d2f3987b187467c4b16d"
+                "reference": "ea59bb0edfaf9f28d18d8791410ee0355f317669"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/984ea2c0f45f42dfed01d2f3987b187467c4b16d",
-                "reference": "984ea2c0f45f42dfed01d2f3987b187467c4b16d",
+                "url": "https://api.github.com/repos/symfony/console/zipball/ea59bb0edfaf9f28d18d8791410ee0355f317669",
+                "reference": "ea59bb0edfaf9f28d18d8791410ee0355f317669",
                 "shasum": ""
             },
             "require": {
@@ -3252,7 +3246,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.4.14"
+                "source": "https://github.com/symfony/console/tree/v5.4.15"
             },
             "funding": [
                 {
@@ -3268,7 +3262,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-07T08:01:20+00:00"
+            "time": "2022-10-26T21:41:52+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -3405,16 +3399,16 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v6.0.12",
+            "version": "v6.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "c69331ec49913a91f32737e29ed451ecee8cbea2"
+                "reference": "b659bb16afdeb784699ee08736b22bc6cc352536"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/c69331ec49913a91f32737e29ed451ecee8cbea2",
-                "reference": "c69331ec49913a91f32737e29ed451ecee8cbea2",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/b659bb16afdeb784699ee08736b22bc6cc352536",
+                "reference": "b659bb16afdeb784699ee08736b22bc6cc352536",
                 "shasum": ""
             },
             "require": {
@@ -3458,7 +3452,7 @@
             "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v6.0.12"
+                "source": "https://github.com/symfony/dom-crawler/tree/v6.0.15"
             },
             "funding": [
                 {
@@ -3474,7 +3468,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-04T19:18:27+00:00"
+            "time": "2022-10-28T16:22:58+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -4279,16 +4273,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v6.0.14",
+            "version": "v6.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "3db7da820a6e4a584b714b3933c34c6a7db4d86c"
+                "reference": "51ac0fa0ccf132a00519b87c97e8f775fa14e771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/3db7da820a6e4a584b714b3933c34c6a7db4d86c",
-                "reference": "3db7da820a6e4a584b714b3933c34c6a7db4d86c",
+                "url": "https://api.github.com/repos/symfony/string/zipball/51ac0fa0ccf132a00519b87c97e8f775fa14e771",
+                "reference": "51ac0fa0ccf132a00519b87c97e8f775fa14e771",
                 "shasum": ""
             },
             "require": {
@@ -4344,7 +4338,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v6.0.14"
+                "source": "https://github.com/symfony/string/tree/v6.0.15"
             },
             "funding": [
                 {
@@ -4572,10 +4566,24 @@
             "time": "2022-10-16T01:01:54+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "qase/codeception-reporter",
+            "version": "dev-emakarkin/Feature12",
+            "alias": "v1.2.1",
+            "alias_normalized": "1.2.1.0"
+        },
+        {
+            "package": "qase/php-client-utils",
+            "version": "dev-emakarkin/PHPUnit32",
+            "alias": "v1.0.4",
+            "alias_normalized": "1.0.4.0"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "qase/codeception-reporter": 20
+        "qase/codeception-reporter": 20,
+        "qase/php-client-utils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
