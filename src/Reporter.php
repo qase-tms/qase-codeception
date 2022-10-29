@@ -70,7 +70,7 @@ class Reporter extends Extension
         );
 
         // TODO-item: Deal with runId, passed to RunResult earlier (see deleted `if` above)
-        $runResult = new RunResult($this->config);
+        $runResult = new RunResult($this->reporterConfig);
 
         $this->runResultCollection = new RunResultCollection(
             $runResult,
