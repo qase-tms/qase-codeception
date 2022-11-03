@@ -2011,7 +2011,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-codeception",
-                "reference": "a86055e4a9076c4282468a779e259868f08d4a6c"
+                "reference": "7e134ba217fc342f52ac4b39b2735f643e3d24ba"
             },
             "require": {
                 "codeception/codeception": "^3.0 || ^4.0",
@@ -2054,7 +2054,7 @@
                 "reporter",
                 "tms"
             ],
-            "time": "2022-10-29T17:44:33+00:00"
+            "time": "2022-11-01T18:06:28+00:00"
         },
         {
             "name": "qase/php-client-utils",
@@ -2062,12 +2062,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-php-client-utils",
-                "reference": "2ad2689459b73a8e1eb9f92ccbf446a204f9c9da"
+                "reference": "d54d5610a0de5f59fb378246a9666c58095bc292"
             },
             "require": {
+                "php": "^7.4 || ^8.0",
                 "qase/api": "v1.2.0"
             },
             "require-dev": {
+                "ext-json": "*",
                 "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
@@ -2084,7 +2086,7 @@
             "license": [
                 "Apache-2.0"
             ],
-            "time": "2022-10-27T17:13:13+00:00"
+            "time": "2022-11-03T17:28:14+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
