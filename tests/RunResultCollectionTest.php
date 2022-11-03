@@ -19,6 +19,10 @@ class RunResultCollectionTest extends TestCase
 
     protected function setUp(): void
     {
+        putenv('QASE_PROJECT_CODE=hi');
+        putenv('QASE_API_BASE_URL=hi');
+        putenv('QASE_API_TOKEN=hi');
+
         // Codeception 4 dependencies fix. Original comment: Compatibility with Symfony 5.
         if (
             !class_exists('Symfony\Component\EventDispatcher\Event')

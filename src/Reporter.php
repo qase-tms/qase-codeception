@@ -43,6 +43,9 @@ class Reporter extends Extension
         Events::TEST_ERROR => 'error',
     ];
 
+    /**
+     * @throws ApiException
+     */
     public function _initialize(): void
     {
         parent::_initialize();
@@ -69,7 +72,6 @@ class Reporter extends Extension
             $this->headerManager->getClientHeaders()
         );
 
-        // TODO-item: Deal with runId, passed to RunResult earlier (see deleted `if` above)
         $runResult = new RunResult($this->reporterConfig);
 
         $this->runResultCollection = new RunResultCollection(
@@ -121,6 +123,9 @@ class Reporter extends Extension
         $this->runResultCollection->add(self::SKIPPED, $event);
     }
 
+    /**
+     * @throws ApiException
+     */
     private function validateProjectCode(): void
     {
         try {
@@ -136,6 +141,9 @@ class Reporter extends Extension
         }
     }
 
+    /**
+     * @throws ApiException
+     */
     private function validateEnvironmentId(): void
     {
         if ($this->reporterConfig->getEnvironmentId() === null) {
