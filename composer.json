@@ -21,7 +21,7 @@
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "qase/api": "v1.2.0",
-        "qase/php-client-utils": "dev-emakarkin/PHPUnit32 as v1.0.4",
+        "qase/php-client-utils": "^1.0.3",
         "codeception/codeception": "^3.0 || ^4.0"
     },
     "require-dev": {
@@ -45,11 +45,5 @@
             "*": "dist"
         },
         "sort-packages": true
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/in4s/qase-php-client-utils"
-        }
-    ]
+    }
 }
