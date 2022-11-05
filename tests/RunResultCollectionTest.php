@@ -139,8 +139,7 @@ class RunResultCollectionTest extends TestCase
     private function createUnitTestEvent(float $time = 1.0): TestEvent
     {
         $test = $this->createUnitTest();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test, $time])->getMock();
+        $event = $this->getMockBuilder(TestEvent::class)->disableOriginalConstructor()->getMock();
         $event->method('getTest')->willReturn($test);
         $event->method('getTime')->willReturn($time);
 
@@ -159,8 +158,7 @@ class RunResultCollectionTest extends TestCase
     {
         $test = $this->createUnitTest();
         $exception = new \Exception($stackTraceMessage);
-        $event = $this->getMockBuilder(FailEvent::class)
-            ->setConstructorArgs([$test, $time, $exception])->getMock();
+        $event = $this->getMockBuilder(FailEvent::class)->disableOriginalConstructor()->getMock();
         $event->method('getTest')->willReturn($test);
         $event->method('getTime')->willReturn($time);
         $event->method('getFail')->willReturn($exception);
