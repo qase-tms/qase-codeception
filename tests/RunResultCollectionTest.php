@@ -37,9 +37,7 @@ class RunResultCollectionTest extends TestCase
      */
     public function testAutoCreateDefect(string $title, string $status, float $time, bool $expected)
     {
-        $runResult = $this->getMockBuilder(RunResult::class)
-            ->setConstructorArgs([$this->createConfig()])
-            ->getMock();
+        $runResult = $this->getMockBuilder(RunResult::class)->disableOriginalConstructor()->getMock();
         $runResult->expects($this->once())
             ->method('addResult')
             ->with(
@@ -172,8 +170,7 @@ class RunResultCollectionTest extends TestCase
 
     private function createConfig(string $projectCode = 'PRJ', ?int $runId = null): Config
     {
-        $config = $this->getMockBuilder(Config::class)
-            ->setConstructorArgs(['Reporter'])->getMock();
+        $config = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $config->method('getRunId')->willReturn($runId);
         $config->method('getProjectCode')->willReturn($projectCode);
         $config->method('getEnvironmentId')->willReturn(null);
