@@ -26,7 +26,7 @@ class RunResultCollectionTest extends TestCase
      */
     public function testAutoCreateDefect(string $title, string $status, float $time, bool $expected)
     {
-        $runResult = $this->getMockBuilder(RunResult::class)->disableOriginalConstructor()->getMock();
+        $runResult = $this->createMock(RunResult::class);
         $runResult->expects($this->once())
             ->method('addResult')
             ->with(
@@ -90,20 +90,20 @@ class RunResultCollectionTest extends TestCase
         // Act: Initialize empty Collection
         $runResultCollection = $this->createRunResultCollection();
         // Assert: Insure results are empty
-        $runResultWithoutResults = $runResultCollection->get();
-        $this->assertEmpty($runResultWithoutResults->getResults());
+        $runResult = $runResultCollection->get();
+        $this->assertEmpty($runResult->getResults());
 
         // Act: Add run results to the collection
         $runResultCollection->add('failed', $this->createUnitTestFailEvent($stackTraceMessage, time: 1.0));
         $runResultCollection->add('passed', $this->createTestEvent($this->createCestTest(), time: 0.375));
         // Assert: Check collection results
-        $runResultWithResults = $runResultCollection->get();
-        $this->assertSame($runResultWithResults->getResults(), $expectedResult);
+        $runResult = $runResultCollection->get();
+        $this->assertSame($runResult->getResults(), $expectedResult);
     }
 
     public function testAddingUnsupportedTestType()
     {
-        $logger = $this->createLogger();
+        $logger = $this->createMock(ConsoleLogger::class);
         $logger->expects($this->once())
             ->method('writeln')
             ->with($this->equalTo('The test type is not supported yet: Cept. Skipped.'));
@@ -118,20 +118,10 @@ class RunResultCollectionTest extends TestCase
         ?LoggerInterface $logger = null
     ): RunResultCollection
     {
-        $runResult = $runResult ?: $this->createRunResult();
-        $logger = $logger ?: $this->createLogger();
+        $runResult = $runResult ?: new RunResult($this->createStub(Config::class));
+        $logger = $logger ?: $this->createMock(ConsoleLogger::class);
 
         return new RunResultCollection($runResult, $isReportingEnabled, $logger);
-    }
-
-    private function createRunResult(): RunResult
-    {
-        return new RunResult($this->createConfig(runId: 1));
-    }
-
-    private function createLogger(): ConsoleLogger
-    {
-        return $this->getMockBuilder(ConsoleLogger::class)->getMock();
     }
 
     private function createUnitTest()
@@ -139,8 +129,7 @@ class RunResultCollectionTest extends TestCase
         $unitTest = $this->getMockBuilder(Unit::class)->setMockClassName('Unit')->getMock();
         $unitTest->method('dataName')->willReturn('');
         $unitTest->method('getName')->willReturn('getMetadata');
-        $test = $this->getMockBuilder(TestCaseWrapper::class)->setMockClassName('TestCaseWrapper')
-            ->setConstructorArgs([$unitTest])->getMock();
+        $test = $this->createStub(TestCaseWrapper::class);
         $test->method('getName')->willReturn('methodName');
         $test->method('getTestCase')->willReturn($unitTest);
 
@@ -152,8 +141,7 @@ class RunResultCollectionTest extends TestCase
         $testInstance = $this->getMockBuilder(\stdClass::class)->setMockClassName('Cest')
             ->addMethods(['string'])->getMock();
 
-        $test = $this->getMockBuilder(Cest::class)
-            ->setConstructorArgs([$testInstance, 'string', 'string'])->getMock();
+        $test = $this->createStub(Cest::class);
         $test->method('getTestMethod')->willReturn('methodName');
         $test->method('getTestInstance')->willReturn($testInstance);
 
@@ -162,16 +150,13 @@ class RunResultCollectionTest extends TestCase
 
     private function createCeptTest()
     {
-        $test = $this->getMockBuilder(Cept::class)->setMockClassName('Cept')
-            ->setConstructorArgs(['', ''])->getMock();
-
-        return $test;
+        return $this->getMockBuilder(Cept::class)->setMockClassName('Cept')
+            ->disableOriginalConstructor()->getMock();
     }
 
     private function createTestEvent(Test $test, float $time = 1.0): TestEvent
     {
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test, $time])->getMock();
+        $event = $this->createStub(TestEvent::class);
         $event->method('getTest')->willReturn($test);
         $event->method('getTime')->willReturn($time);
 
@@ -180,23 +165,11 @@ class RunResultCollectionTest extends TestCase
 
     private function createUnitTestFailEvent(string $stackTraceMessage, float $time): FailEvent
     {
-        $test = $this->createUnitTest();
-        $exception = new \Exception($stackTraceMessage);
-        $event = $this->getMockBuilder(FailEvent::class)->disableOriginalConstructor()->getMock();
-        $event->method('getTest')->willReturn($test);
+        $event = $this->createStub(FailEvent::class);
+        $event->method('getTest')->willReturn($this->createUnitTest());
         $event->method('getTime')->willReturn($time);
-        $event->method('getFail')->willReturn($exception);
+        $event->method('getFail')->willReturn(new \Exception($stackTraceMessage));
 
         return $event;
-    }
-
-    private function createConfig(string $projectCode = 'PRJ', ?int $runId = null): Config
-    {
-        $config = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
-        $config->method('getRunId')->willReturn($runId);
-        $config->method('getProjectCode')->willReturn($projectCode);
-        $config->method('getEnvironmentId')->willReturn(null);
-
-        return $config;
     }
 }
