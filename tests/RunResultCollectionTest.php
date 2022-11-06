@@ -13,6 +13,7 @@ use Codeception\Test\TestCaseWrapper;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
+use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\ConsoleLogger;
 use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\RunResult;
@@ -25,9 +26,7 @@ class RunResultCollectionTest extends TestCase
      */
     public function testAutoCreateDefect(string $title, string $status, float $time, bool $expected)
     {
-        $runResult = $this->getMockBuilder(RunResult::class)
-            ->setConstructorArgs(['PRJ', null, true])
-            ->getMock();
+        $runResult = $this->getMockBuilder(RunResult::class)->disableOriginalConstructor()->getMock();
         $runResult->expects($this->once())
             ->method('addResult')
             ->with(
@@ -127,7 +126,7 @@ class RunResultCollectionTest extends TestCase
 
     private function createRunResult(): RunResult
     {
-        return new RunResult(projectCode: 'PRJ', runId: 1, completeRunAfterSubmit: true);
+        return new RunResult($this->createConfig(runId: 1));
     }
 
     private function createLogger(): ConsoleLogger
@@ -183,12 +182,21 @@ class RunResultCollectionTest extends TestCase
     {
         $test = $this->createUnitTest();
         $exception = new \Exception($stackTraceMessage);
-        $event = $this->getMockBuilder(FailEvent::class)
-            ->setConstructorArgs([$test, $exception, $time])->getMock();
+        $event = $this->getMockBuilder(FailEvent::class)->disableOriginalConstructor()->getMock();
         $event->method('getTest')->willReturn($test);
         $event->method('getTime')->willReturn($time);
         $event->method('getFail')->willReturn($exception);
 
         return $event;
+    }
+
+    private function createConfig(string $projectCode = 'PRJ', ?int $runId = null): Config
+    {
+        $config = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
+        $config->method('getRunId')->willReturn($runId);
+        $config->method('getProjectCode')->willReturn($projectCode);
+        $config->method('getEnvironmentId')->willReturn(null);
+
+        return $config;
     }
 }

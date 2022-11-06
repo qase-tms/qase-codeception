@@ -43,11 +43,14 @@ class Reporter extends Extension
         Events::TEST_ERROR => 'error',
     ];
 
+    /**
+     * @throws ApiException
+     */
     public function _initialize(): void
     {
         parent::_initialize();
 
-        $this->reporterConfig = new Config();
+        $this->reporterConfig = new Config('Codeception');
         if ($this->reporterConfig->isLoggingEnabled()) {
             $this->logger = new ConsoleLogger();
         } else {
@@ -59,7 +62,6 @@ class Reporter extends Extension
             $this->logger->writeln('Reporting to Qase.io is disabled. Set the environment variable QASE_REPORT=1 to enable it.');
             return;
         }
-        $this->reporterConfig->validate();
 
         $this->headerManager = new HeaderManager();
         $this->repo = new Repository();
@@ -70,18 +72,7 @@ class Reporter extends Extension
             $this->headerManager->getClientHeaders()
         );
 
-        $runId = $this->reporterConfig->getRunId();
-        if (!$runId) {
-            $runId = $this->resultHandler->createRunId($this->reporterConfig->getProjectCode(), $this->reporterConfig->getEnvironmentId());
-            putenv('QASE_RUN_ID=' . $runId);
-        }
-
-        $runResult = new RunResult(
-            $this->reporterConfig->getProjectCode(),
-            $runId,
-            $this->reporterConfig->getCompleteRunAfterSubmit(),
-            $this->reporterConfig->getEnvironmentId(),
-        );
+        $runResult = new RunResult($this->reporterConfig);
 
         $this->runResultCollection = new RunResultCollection(
             $runResult,
@@ -132,6 +123,9 @@ class Reporter extends Extension
         $this->runResultCollection->add(self::SKIPPED, $event);
     }
 
+    /**
+     * @throws ApiException
+     */
     private function validateProjectCode(): void
     {
         try {
@@ -147,6 +141,9 @@ class Reporter extends Extension
         }
     }
 
+    /**
+     * @throws ApiException
+     */
     private function validateEnvironmentId(): void
     {
         if ($this->reporterConfig->getEnvironmentId() === null) {
