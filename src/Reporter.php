@@ -8,8 +8,6 @@ use Codeception\Event\FailEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Extension;
 use Codeception\Events;
-use Codeception\Test\Cest;
-use Codeception\Test\TestCaseWrapper;
 use Qase\Client\ApiException;
 use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\LoggerInterface;
@@ -26,14 +24,14 @@ class Reporter extends Extension
 
     private const PASSED = 'passed';
     private const SKIPPED = 'skipped';
-    private const FAILED = 'failed';
+    public const FAILED = 'failed';
 
-    private RunResult $runResult;
     private Repository $repo;
     private ResultHandler $resultHandler;
     private LoggerInterface $logger;
     private Config $reporterConfig;
     private HeaderManager $headerManager;
+    private RunResultCollection $runResultCollection;
 
     public static array $events = [
         Events::RESULT_PRINT_AFTER => 'afterSuite',
@@ -78,11 +76,17 @@ class Reporter extends Extension
             putenv('QASE_RUN_ID=' . $runId);
         }
 
-        $this->runResult = new RunResult(
+        $runResult = new RunResult(
             $this->reporterConfig->getProjectCode(),
             $runId,
             $this->reporterConfig->getCompleteRunAfterSubmit(),
             $this->reporterConfig->getEnvironmentId(),
+        );
+
+        $this->runResultCollection = new RunResultCollection(
+            $runResult,
+            $this->reporterConfig->isReportingEnabled(),
+            $this->logger
         );
 
         $this->validateProjectCode();
@@ -97,7 +101,7 @@ class Reporter extends Extension
 
         try {
             $this->resultHandler->handle(
-                $this->runResult,
+                $this->runResultCollection->get(),
                 $this->reporterConfig->getRootSuiteTitle() ?: self::ROOT_SUITE_TITLE,
             );
         } catch (\Exception $e) {
@@ -110,69 +114,34 @@ class Reporter extends Extension
 
     public function success(TestEvent $event): void
     {
-        $this->accumulateTestResult(self::PASSED, $event);
+        $this->runResultCollection->add(self::PASSED, $event);
     }
 
     public function fail(FailEvent $event): void
     {
-        $this->accumulateTestResult(self::FAILED, $event);
+        $this->runResultCollection->add(self::FAILED, $event);
     }
 
     public function error(FailEvent $event): void
     {
-        $this->accumulateTestResult(self::FAILED, $event);
+        $this->runResultCollection->add(self::FAILED, $event);
     }
 
     public function skipped(TestEvent $event): void
     {
-        $this->accumulateTestResult(self::SKIPPED, $event);
-    }
-
-    private function accumulateTestResult(string $status, TestEvent $event): void
-    {
-        if (!$this->reporterConfig->isReportingEnabled()) {
-            return;
-        }
-
-        $test = $event->getTest();
-
-        switch (true) {
-            case $test instanceof Cest:
-                $class = get_class($test->getTestInstance());
-                $method = $test->getTestMethod();
-                break;
-            case $test instanceof TestCaseWrapper:
-                $testCase = $test->getTestCase();
-                $class = get_class($testCase);
-                $method = $test->getName();
-                break;
-            default:
-                $this->logger->writeln(sprintf('The test type is not supported yet: %s. Skipped.', get_class($test)));
-                return;
-        }
-
-        if ($status === self::FAILED && $event instanceof FailEvent) {
-            $message = $event->getFail()->getMessage() ?: $event->getFail()->getTraceAsString();
-        }
-
-        $this->runResult->addResult([
-            'status' => $status,
-            'time' => $event->getTime(),
-            'full_test_name' => $class . '::' . $method,
-            'stacktrace' => $message ?? null,
-        ]);
+        $this->runResultCollection->add(self::SKIPPED, $event);
     }
 
     private function validateProjectCode(): void
     {
         try {
-            $this->logger->write("checking if project '{$this->runResult->getProjectCode()}' exists... ");
+            $this->logger->write("checking if project '{$this->reporterConfig->getProjectCode()}' exists... ");
 
-            $this->repo->getProjectsApi()->getProject($this->runResult->getProjectCode());
+            $this->repo->getProjectsApi()->getProject($this->reporterConfig->getProjectCode());
 
             $this->logger->writeln('OK', '');
         } catch (ApiException $e) {
-            $this->logger->writeln("could not find project '{$this->runResult->getProjectCode()}'");
+            $this->logger->writeln("could not find project '{$this->reporterConfig->getProjectCode()}'");
 
             throw $e;
         }
@@ -187,7 +156,7 @@ class Reporter extends Extension
         try {
             $this->logger->write("checking if Environment Id '{$this->reporterConfig->getEnvironmentId()}' exists... ");
 
-            $this->repo->getEnvironmentsApi()->getEnvironment($this->runResult->getProjectCode(), $this->reporterConfig->getEnvironmentId());
+            $this->repo->getEnvironmentsApi()->getEnvironment($this->reporterConfig->getProjectCode(), $this->reporterConfig->getEnvironmentId());
 
             $this->logger->writeln('OK', '');
         } catch (ApiException $e) {
