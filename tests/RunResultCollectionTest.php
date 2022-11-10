@@ -13,6 +13,7 @@ use Codeception\Test\TestCaseWrapper;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
+use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\ConsoleLogger;
 use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\RunResult;
@@ -117,7 +118,7 @@ class RunResultCollectionTest extends TestCase
         ?LoggerInterface $logger = null
     ): RunResultCollection
     {
-        $runResult = $runResult ?: new RunResult(projectCode: 'PRJ', runId: 1, completeRunAfterSubmit: true);
+        $runResult = $runResult ?: new RunResult($this->createStub(Config::class));
         $logger = $logger ?: $this->createMock(ConsoleLogger::class);
 
         return new RunResultCollection($runResult, $isReportingEnabled, $logger);
