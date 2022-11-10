@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2dd2c04d44a4159b9c9cb57655d46d33",
+    "content-hash": "e477519edc667725ed6a6d92b56fa2a9",
     "packages": [],
     "packages-dev": [
         {
@@ -2105,11 +2105,11 @@
         },
         {
             "name": "qase/codeception-reporter",
-            "version": "dev-codeception5support_acd2",
+            "version": "dev-emakarkin/cc5Feature12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/in4s/qase-codeception",
-                "reference": "90a5de3079b4c91c0cd4befffca0e5615dbcd1be"
+                "reference": "b88a8d36700f3be8e4c40407ed4e5f4bcc16dc38"
             },
             "require": {
                 "codeception/codeception": "^5.0",
@@ -2150,26 +2150,22 @@
                 "reporter",
                 "tms"
             ],
-            "time": "2022-10-28T15:52:52+00:00"
+            "time": "2022-11-06T06:46:52+00:00"
         },
         {
             "name": "qase/php-client-utils",
-            "version": "v1.0.3",
+            "version": "dev-emakarkin/PHPUnit33",
             "source": {
                 "type": "git",
-                "url": "https://github.com/qase-tms/qase-php-client-utils.git",
-                "reference": "556a43910ecb6df2a3a76842bc56d93bb83f5a32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-php-client-utils/zipball/556a43910ecb6df2a3a76842bc56d93bb83f5a32",
-                "reference": "556a43910ecb6df2a3a76842bc56d93bb83f5a32",
-                "shasum": ""
+                "url": "https://github.com/in4s/qase-php-client-utils",
+                "reference": "a70ff2c44353d674f6d8c070bec5575a0919e9a3"
             },
             "require": {
+                "php": "^7.4 || ^8.0",
                 "qase/api": "v1.2.0"
             },
             "require-dev": {
+                "ext-json": "*",
                 "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
@@ -2178,15 +2174,15 @@
                     "Qase\\PhpClientUtils\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "tests/"
+                }
+            },
             "license": [
                 "Apache-2.0"
             ],
-            "support": {
-                "issues": "https://github.com/qase-tms/qase-php-client-utils/issues",
-                "source": "https://github.com/qase-tms/qase-php-client-utils/tree/v1.0.3"
-            },
-            "time": "2022-09-14T21:25:34+00:00"
+            "time": "2022-11-05T16:00:27+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -4670,14 +4666,21 @@
     "aliases": [
         {
             "package": "qase/codeception-reporter",
-            "version": "dev-codeception5support_acd2",
-            "alias": "2.0.0",
-            "alias_normalized": "2.0.0.0"
+            "version": "dev-emakarkin/cc5Feature12",
+            "alias": "v2.1.0",
+            "alias_normalized": "2.1.0.0"
+        },
+        {
+            "package": "qase/php-client-utils",
+            "version": "dev-emakarkin/PHPUnit33",
+            "alias": "v1.0.4",
+            "alias_normalized": "1.0.4.0"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "qase/codeception-reporter": 20
+        "qase/codeception-reporter": 20,
+        "qase/php-client-utils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
