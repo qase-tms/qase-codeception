@@ -56,28 +56,27 @@ class Reporter extends Extension
         } else {
             $this->logger = new NullLogger();
         }
-        $resultsConverter = new ResultsConverter($this->logger);
+
+        $runResult = new RunResult($this->reporterConfig);
+        $this->runResultCollection = new RunResultCollection(
+            $runResult,
+            $this->reporterConfig->isReportingEnabled(),
+            $this->logger
+        );
 
         if (!$this->reporterConfig->isReportingEnabled()) {
             $this->logger->writeln('Reporting to Qase.io is disabled. Set the environment variable QASE_REPORT=1 to enable it.');
             return;
         }
 
-        $this->headerManager = new HeaderManager();
         $this->repo = new Repository();
+        $resultsConverter = new ResultsConverter($this->logger);
         $this->resultHandler = new ResultHandler($this->repo, $resultsConverter, $this->logger);
 
+        $this->headerManager = new HeaderManager();
         $this->repo->init(
             $this->reporterConfig,
             $this->headerManager->getClientHeaders()
-        );
-
-        $runResult = new RunResult($this->reporterConfig);
-
-        $this->runResultCollection = new RunResultCollection(
-            $runResult,
-            $this->reporterConfig->isReportingEnabled(),
-            $this->logger
         );
 
         $this->validateProjectCode();

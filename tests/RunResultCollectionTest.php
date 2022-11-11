@@ -33,7 +33,7 @@ class RunResultCollectionTest extends TestCase
      */
     public function testAutoCreateDefect(string $title, string $status, float $time, bool $expected)
     {
-        $runResult = $this->getMockBuilder(RunResult::class)->disableOriginalConstructor()->getMock();
+        $runResult = $this->createMock(RunResult::class);
         $runResult->expects($this->once())
             ->method('addResult')
             ->with(
