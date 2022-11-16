@@ -9,6 +9,7 @@ use Codeception\Event\TestEvent;
 use Codeception\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Qase\Codeception\RunResultCollection;
+use Qase\PhpClientUtils\Config;
 use Qase\PhpClientUtils\ConsoleLogger;
 use Qase\PhpClientUtils\LoggerInterface;
 use Qase\PhpClientUtils\RunResult;
@@ -32,9 +33,7 @@ class RunResultCollectionTest extends TestCase
      */
     public function testAutoCreateDefect(string $title, string $status, float $time, bool $expected)
     {
-        $runResult = $this->getMockBuilder(RunResult::class)
-            ->setConstructorArgs(['PRJ', null, true])
-            ->getMock();
+        $runResult = $this->createMock(RunResult::class);
         $runResult->expects($this->once())
             ->method('addResult')
             ->with(
@@ -66,8 +65,9 @@ class RunResultCollectionTest extends TestCase
 
     public function testResultCollectionIsEmptyWhenReportingIsDisabled()
     {
+        $runResult = null;
         $isReportingEnabled = false;
-        $runResultCollection = $this->createRunResultCollection(null, $isReportingEnabled);
+        $runResultCollection = $this->createRunResultCollection($runResult, $isReportingEnabled);
         $runResultCollection->add('failed', $this->createUnitTestEvent());
 
         $runResult = $runResultCollection->get();
@@ -99,15 +99,15 @@ class RunResultCollectionTest extends TestCase
         // Act: Initialize empty Collection
         $runResultCollection = $this->createRunResultCollection();
         // Assert: Insure results are empty
-        $runResultWithoutResults = $runResultCollection->get();
-        $this->assertEmpty($runResultWithoutResults->getResults());
+        $runResult = $runResultCollection->get();
+        $this->assertEmpty($runResult->getResults());
 
         // Act: Add run results to the collection
         $runResultCollection->add('failed', $this->createUnitTestFailEvent(1.0, $stackTraceMessage));
         $runResultCollection->add('passed', $this->createUnitTestEvent(0.375));
         // Assert: Check collection results
-        $runResultWithResults = $runResultCollection->get();
-        $this->assertSame($runResultWithResults->getResults(), $expectedResult);
+        $runResult = $runResultCollection->get();
+        $this->assertSame($runResult->getResults(), $expectedResult);
     }
 
     private function createRunResultCollection(
@@ -116,31 +116,16 @@ class RunResultCollectionTest extends TestCase
         ?LoggerInterface $logger = null
     ): RunResultCollection
     {
-        $runResult = $runResult ?: $this->createRunResult();
-        $logger = $logger ?: $this->createLogger();
+        $runResult = $runResult ?: new RunResult($this->createStub(Config::class));
+        $logger = $logger ?: $this->createMock(ConsoleLogger::class);
 
         return new RunResultCollection($runResult, $isReportingEnabled, $logger);
     }
 
-    private function createRunResult(): RunResult
-    {
-        $runId = 1;
-        $completeRunAfterSubmit = true;
-
-        return new RunResult('PRJ', $runId, $completeRunAfterSubmit);
-    }
-
-    private function createLogger(): ConsoleLogger
-    {
-        return $this->getMockBuilder(ConsoleLogger::class)->getMock();
-    }
-
     private function createUnitTestEvent(float $time = 1.0): TestEvent
     {
-        $test = $this->createUnitTest();
-        $event = $this->getMockBuilder(TestEvent::class)
-            ->setConstructorArgs([$test, $time])->getMock();
-        $event->method('getTest')->willReturn($test);
+        $event = $this->createStub(TestEvent::class);
+        $event->method('getTest')->willReturn($this->createUnitTest());
         $event->method('getTime')->willReturn($time);
 
         return $event;
@@ -156,13 +141,10 @@ class RunResultCollectionTest extends TestCase
 
     private function createUnitTestFailEvent(float $time, string $stackTraceMessage): FailEvent
     {
-        $test = $this->createUnitTest();
-        $exception = new \Exception($stackTraceMessage);
-        $event = $this->getMockBuilder(FailEvent::class)
-            ->setConstructorArgs([$test, $time, $exception])->getMock();
-        $event->method('getTest')->willReturn($test);
+        $event = $this->createStub(FailEvent::class);
+        $event->method('getTest')->willReturn($this->createUnitTest());
         $event->method('getTime')->willReturn($time);
-        $event->method('getFail')->willReturn($exception);
+        $event->method('getFail')->willReturn(new \Exception($stackTraceMessage));
 
         return $event;
     }
