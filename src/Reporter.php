@@ -43,50 +43,40 @@ class Reporter extends Extension
         Events::TEST_ERROR => 'error',
     ];
 
+    /**
+     * @throws ApiException
+     */
     public function _initialize(): void
     {
         parent::_initialize();
 
-        $this->reporterConfig = new Config();
+        $this->reporterConfig = new Config('Codeception');
         if ($this->reporterConfig->isLoggingEnabled()) {
             $this->logger = new ConsoleLogger();
         } else {
             $this->logger = new NullLogger();
         }
-        $resultsConverter = new ResultsConverter($this->logger);
+
+        $runResult = new RunResult($this->reporterConfig);
+        $this->runResultCollection = new RunResultCollection(
+            $runResult,
+            $this->reporterConfig->isReportingEnabled(),
+            $this->logger
+        );
 
         if (!$this->reporterConfig->isReportingEnabled()) {
             $this->logger->writeln('Reporting to Qase.io is disabled. Set the environment variable QASE_REPORT=1 to enable it.');
             return;
         }
-        $this->reporterConfig->validate();
 
-        $this->headerManager = new HeaderManager();
         $this->repo = new Repository();
+        $resultsConverter = new ResultsConverter($this->logger);
         $this->resultHandler = new ResultHandler($this->repo, $resultsConverter, $this->logger);
 
+        $this->headerManager = new HeaderManager();
         $this->repo->init(
             $this->reporterConfig,
             $this->headerManager->getClientHeaders()
-        );
-
-        $runId = $this->reporterConfig->getRunId();
-        if (!$runId) {
-            $runId = $this->resultHandler->createRunId($this->reporterConfig->getProjectCode(), $this->reporterConfig->getEnvironmentId());
-            putenv('QASE_RUN_ID=' . $runId);
-        }
-
-        $runResult = new RunResult(
-            $this->reporterConfig->getProjectCode(),
-            $runId,
-            $this->reporterConfig->getCompleteRunAfterSubmit(),
-            $this->reporterConfig->getEnvironmentId(),
-        );
-
-        $this->runResultCollection = new RunResultCollection(
-            $runResult,
-            $this->reporterConfig->isReportingEnabled(),
-            $this->logger
         );
 
         $this->validateProjectCode();
@@ -132,6 +122,9 @@ class Reporter extends Extension
         $this->runResultCollection->add(self::SKIPPED, $event);
     }
 
+    /**
+     * @throws ApiException
+     */
     private function validateProjectCode(): void
     {
         try {
@@ -147,6 +140,9 @@ class Reporter extends Extension
         }
     }
 
+    /**
+     * @throws ApiException
+     */
     private function validateEnvironmentId(): void
     {
         if ($this->reporterConfig->getEnvironmentId() === null) {
