@@ -16,7 +16,7 @@ class HeaderManager extends \Qase\PhpClientUtils\HeaderManager
         $reporterVersion = $this->composerPackages['qase/codeception-reporter'] ?? self::UNDEFINED_HEADER;
 
         if (is_callable('shell_exec') && false === stripos(ini_get('disable_functions'), 'shell_exec')) {
-            $composerOutput = shell_exec('composer -V');
+            $composerOutput = shell_exec('composer -V 2>/dev/null') ?? '';
             preg_match('/Composer version\s(?P<version>(.+))\s/U', $composerOutput, $composerMatches);
         }
         $composerVersion = $composerMatches['version'] ?? self::UNDEFINED_HEADER;
