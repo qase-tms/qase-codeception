@@ -1,47 +1,46 @@
 {
-    "name": "qase/codeception-reporter",
-    "description": "Qase TMS Codeception reporter.",
-    "homepage": "https://developers.qase.io",
-    "type": "library",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Sergey Skaridov",
-            "email": "s.skaridov@gmail.com"
-        }
-    ],
-    "keywords": [
-        "qase",
-        "tms",
-        "reporter",
-        "php",
-        "codeception"
-    ],
-    "require": {
-        "php": "^8.0",
-        "ext-json": "*",
-        "qase/api": "v1.2.0",
-        "qase/php-client-utils": "v2.0.0",
-        "codeception/codeception": "^5.0"
-    },
-    "require-dev": {
-        "roave/security-advisories": "dev-latest"
-    },
-    "autoload": {
-        "psr-4": {
-            "Qase\\Codeception\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
+  "name": "qase/codeception-reporter",
+  "description": "Qase TMS Codeception reporter.",
+  "homepage": "https://qase.io",
+  "type": "library",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Qase Team",
+      "email": "support@qase.io"
     }
+  ],
+  "keywords": [
+    "qase",
+    "tms",
+    "reporter",
+    "php",
+    "codeception"
+  ],
+  "require": {
+    "php": "^8.0",
+    "qase/php-commons": "^2.0.5",
+    "codeception/codeception": "^5.2"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "Qase\\Codeception\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "version": "2.0.0",
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  }
 }

@@ -1,77 +1,117 @@
-> # Qase TMS Codeception reporter
->
-> Publish results simple and easy.
+# Qase TMS Codeception Reporter
 
-## How to integrate
+Publish test results easily and efficiently.
 
-#### For Codeception 5:
-```bash
-composer require qase/codeception-reporter:^2
+## Installation
+
+To install the latest version, run:
+
+```sh
+composer require qase/codeception-reporter 
 ```
 
-#### For Codeception 4:
-```bash
-composer require qase/codeception-reporter:^1
+Add the following lines to the `codeception.yml` file:
+
+```yml
+...
+extensions:
+        enabled:
+        - Codeception\Extension\RunFailed
+        - Qase\Codeception\Reporter
 ```
 
-## Example of usage
+## Getting Started
 
-The Codeception reporter has the ability to auto-generate test cases
-and suites from your test data.
+The Codeception reporter can auto-generate test cases and suites based on your test data.
+Test results of subsequent test runs will match the same test cases as long as their names and file paths don’t change.
 
-But if necessary, you can independently register the ID of already
-existing test cases from TMS before the executing tests. For example:
+You can also annotate tests with the IDs of existing test cases from Qase.io before executing them.
+This is a more reliable way to bind automated tests to test cases, ensuring they persist when you rename, move, or
+parameterize your tests.
+
+For example:
 
 ```php
-/**
- * @qaseId 3
- */
-public function testCanBeUsedAsString(): void
+<?php
+
+namespace Tests\Unit;
+
+use Qase\Codeception\Attributes\Field;
+use Qase\Codeception\Attributes\QaseId;
+use Qase\Codeception\Attributes\Suite;
+use Tests\Support\UnitTester;
+
+class FirstTest extends \Codeception\Test\Unit
 {
-    $this->assertEquals(
-        'user@example.com',
-        Email::fromString('user@example.com')
-    );
+    protected UnitTester $tester;
+
+    protected function _before()
+    {
+    }
+
+    #[QaseId(1)]
+    #[Field('description', 'My description')]
+    public function testSomeFeature()
+    {
+        $this->assertTrue(true);
+    }
+
+    #[Suite("My suite")]
+    public function testSomeFeatureFailed()
+    {
+        $this->assertTrue(false);
+    }
 }
 ```
-To run tests and create a test run, execute the command:
+
+To execute Codeception tests and report them to Qase.io, run the command:
 
 ```bash
-$ ./vendor/bin/codecept run
+QASE_MODE=testops ./vendor/bin/codecept run
 ```
 
-A test run will be performed and available at:
+or, if configured in a script:
+
+```bash
+composer test
 ```
+
+A test run will be created and accessible at:
+
 https://app.qase.io/run/QASE_PROJECT_CODE
-```
-
-If test fails, a defect will be automatically created
 
 ## Configuration
 
-Add to your `codeception.yml` extension:
+Qase Codeception Reporter can be configured using:
 
-```xml
-extensions:
-        enabled: [Qase\Codeception\Reporter]
+1. A separate configuration file qase.config.json.
+2. Environment variables (which override the values in the configuration file).
+
+For a full list of configuration options, refer to
+the [Configuration Reference](https://github.com/qase-tms/qase-php-commons/blob/main/README.md#configuration).
+
+Example qase.config.json
+
+```json
+{
+  "mode": "testops",
+  "debug": true,
+  "testops": {
+    "api": {
+      "token": "api_key"
+    },
+    "project": "project_code",
+    "run": {
+      "complete": true
+    }
+  }
+}
 ```
 
-Reporter options (* - required):
+## Requirements
 
-- `QASE_REPORT` - toggles sending reports to Qase.io, set `1` to enable
-- *`QASE_API_TOKEN` - access token, you can find more information [here][auth].
-- *`QASE_PROJECT_CODE` - code of your project (can be extracted from main page of your project,
-  as example, for `https://app.qase.io/project/DEMO` -> `DEMO` is project code here.
-- *`QASE_API_BASE_URL` - URL endpoint API from Qase TMS, default is `https://api.qase.io/v1`.
-- `QASE_RUN_ID` - allows you to use an existing test run instead of creating new.
-- `QASE_RUN_NAME` - Set custom Run name, when new run is created.
-- `QASE_RUN_DESCRIPTION` - Set custom Run description, when new run is created.
-- `QASE_RUN_COMPLETE` - performs the "complete" function after passing the test run.
-- `QASE_ENVIRONMENT_ID` - environment ID from Qase TMS
-- `QASE_LOGGING` - toggles debug logging, set `1` to enable
+We maintain the reporter on LTS versions of PHP.
 
-You can find an example configuration file here: `example/.env.test`
+- php >= 8.1
+- codeception >= 5.2
 
-<!-- references -->
-
-[auth]: https://developers.qase.io/#authentication
