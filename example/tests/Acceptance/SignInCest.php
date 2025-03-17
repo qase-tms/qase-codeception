@@ -2,13 +2,12 @@
 
 namespace Tests\Acceptance;
 
+use Qase\Codeception\Attributes\QaseId;
 use Tests\Support\AcceptanceTester;
 
 class SignInCest
 {
-    /**
-     * @qaseId 5
-     */
+    #[QaseId(5)]
     public function loginPageWorks(AcceptanceTester $I): void
     {
         $I->amOnPage('/login');

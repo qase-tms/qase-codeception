@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Qase\Codeception\Attributes\QaseId;
 use Tests\Support\UnitTester;
 
 class ExampleTest extends \Codeception\Test\Unit
@@ -17,9 +18,7 @@ class ExampleTest extends \Codeception\Test\Unit
         $this->markTestSkipped();
     }
 
-    /**
-     * @qaseId 8
-     */
+    #[QaseId(8)]
     public function testFail(): void
     {
         $this->assertTrue(false);
