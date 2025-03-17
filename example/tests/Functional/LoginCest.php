@@ -2,13 +2,12 @@
 
 namespace Tests\Functional;
 
+use Qase\Codeception\Attributes\QaseId;
 use Tests\Support\FunctionalTester;
 
 class LoginCest
 {
-    /**
-     * @qaseId 1
-     */
+    #[QaseId(1)]
     public function tryLogin(FunctionalTester $I): void
     {
         $I->amOnPage('/');
