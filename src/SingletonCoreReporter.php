@@ -18,7 +18,7 @@ class SingletonCoreReporter
     public static function getInstance(): ReporterInterface
     {
         if (!isset(self::$instance)) {
-            self::$instance = ReporterFactory::create();
+            self::$instance = ReporterFactory::create("codeception/codeception", "qase/codeception-reporter");
         }
         return self::$instance;
     }
