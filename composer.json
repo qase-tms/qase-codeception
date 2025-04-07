@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": "^8.0",
-    "qase/php-commons": "^2.0.6",
+    "qase/php-commons": "^2.1.0",
     "codeception/codeception": "^5.2"
   },
   "require-dev": {
@@ -35,7 +35,7 @@
       "Tests\\": "tests/"
     }
   },
-  "version": "2.0.1",
+  "version": "2.1.0",
   "config": {
     "optimize-autoloader": true,
     "preferred-install": {
