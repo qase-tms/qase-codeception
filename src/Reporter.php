@@ -20,6 +20,7 @@ use Qase\PhpCommons\Loggers\Logger;
 use Qase\PhpCommons\Models\Relation;
 use Qase\PhpCommons\Models\Result;
 use Qase\PhpCommons\Models\Step;
+use Qase\PhpCommons\Utils\Signature;
 
 class Reporter extends Extension
 {
@@ -81,7 +82,7 @@ class Reporter extends Extension
         $result->title = $metadata->title ?? $test->getName();
         $result->params = $metadata->parameters;
         $result->fields = $metadata->fields;
-        $result->signature = $this->createSignature($event);
+        $result->signature = $this->createSignature($event, $metadata->qaseIds, $metadata->parameters);
         $result->execution->thread = "main";
         $result->relations = $relation;
 
@@ -156,9 +157,10 @@ class Reporter extends Extension
         $this->reporter->completeRun();
     }
 
-    private function createSignature(TestEvent $event): string
+    private function createSignature(TestEvent $event, ?array $ids = null, ?array $params = null): string
     {
-        return str_replace([':', '\\'], '::', $event->getTest()->getSignature());
+        $suites = explode('\\', $event->getTest()->getSignature());
+        return Signature::generateSignature($ids, $suites, $params);
     }
 
     private function getSuites(TestEvent $event): array
