@@ -29,6 +29,8 @@ You can also annotate tests with the IDs of existing test cases from Qase.io bef
 This is a more reliable way to bind automated tests to test cases, ensuring they persist when you rename, move, or
 parameterize your tests.
 
+For more information, see the [Usage Guide](docs/usage.md).
+
 For example:
 
 ```php
@@ -78,7 +80,7 @@ composer test
 
 A test run will be created and accessible at:
 
-https://app.qase.io/run/QASE_PROJECT_CODE
+<https://app.qase.io/run/QASE_PROJECT_CODE>
 
 ## Configuration
 
@@ -114,4 +116,3 @@ We maintain the reporter on LTS versions of PHP.
 
 - php >= 8.1
 - codeception >= 5.2
-
