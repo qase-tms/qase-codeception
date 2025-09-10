@@ -27,6 +27,7 @@ class Reporter extends Extension
     private const STATUS_PASSED = 'passed';
     private const STATUS_FAILED = 'failed';
     private const STATUS_SKIPPED = 'skipped';
+    private const STATUS_INVALID = 'invalid';
 
     private bool $isInit = false;
     private ReporterInterface $reporter;
@@ -171,7 +172,8 @@ class Reporter extends Extension
 
     private function setTestFailed(FailEvent $event): void
     {
-        $this->updateResultWithFailure($event, self::STATUS_FAILED);
+        $status = $this->determineFailureStatus($event);
+        $this->updateResultWithFailure($event, $status);
     }
 
     private function updateResultWithFailure(FailEvent $event, string $status): void
@@ -203,5 +205,48 @@ class Reporter extends Extension
         }
 
         return $relation;
+    }
+
+    /**
+     * Determines the appropriate status for a failed test based on the type of exception.
+     * Returns 'failed' for assertion failures and 'invalid' for other types of errors.
+     */
+    private function determineFailureStatus(FailEvent $event): string
+    {
+        $exception = $event->getFail();
+        
+        // Check if it's an assertion failure
+        if ($this->isAssertionFailure($exception)) {
+            return self::STATUS_FAILED;
+        }
+        
+        // All other types of errors are considered invalid
+        return self::STATUS_INVALID;
+    }
+
+    /**
+     * Checks if the exception is an assertion failure.
+     * This includes PHPUnit's AssertionFailedError and PHP's AssertionError.
+     */
+    private function isAssertionFailure(\Throwable $exception): bool
+    {
+        // Check for PHPUnit's AssertionFailedError and its subclasses
+        if ($exception instanceof \PHPUnit\Framework\AssertionFailedError) {
+            return true;
+        }
+        
+        // Check for PHP's AssertionError
+        if ($exception instanceof \AssertionError) {
+            return true;
+        }
+        
+        // Check by class name for additional safety
+        $className = get_class($exception);
+        if (str_contains($className, 'AssertionFailedError') || 
+            str_contains($className, 'AssertionError')) {
+            return true;
+        }
+        
+        return false;
     }
 }
