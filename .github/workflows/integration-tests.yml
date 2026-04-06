@@ -1,0 +1,50 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install reporters-validator
+        run: pip install git+https://github.com/qase-tms/reporters-validator.git
+
+      - name: Download report schemas
+        run: git clone --depth 1 https://github.com/qase-tms/specs.git /tmp/specs
+
+      - name: Install example dependencies
+        working-directory: examples
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Build Codeception actors
+        working-directory: examples
+        run: php vendor/bin/codecept build
+
+      - name: Validate Codeception reporter
+        working-directory: examples
+        run: |
+          QASE_MODE=report \
+          QASE_REPORT_CONNECTION_PATH=${{ github.workspace }}/build/report \
+          php vendor/bin/codecept run --no-colors || true
+
+          reporters-validator validate \
+            --report-dir ${{ github.workspace }}/build/report \
+            --expected ${{ github.workspace }}/expected/codeception-examples.yaml \
+            --schema-dir /tmp/specs/report/schemas

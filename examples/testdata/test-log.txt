@@ -1,0 +1,3 @@
+2024-01-01 00:00:00 [INFO] Test log entry for attachment testing
+2024-01-01 00:00:01 [DEBUG] Sample debug message
+2024-01-01 00:00:02 [INFO] Test completed successfully
