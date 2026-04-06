@@ -154,7 +154,6 @@ class Reporter extends Extension
 
     public function sendResults(PrintResultEvent $event): void
     {
-        $this->reporter->sendResults();
         $this->reporter->completeRun();
     }
 
