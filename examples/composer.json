@@ -1,0 +1,19 @@
+{
+    "require-dev": {
+        "codeception/module-asserts": "*",
+        "qase/codeception-reporter": "*"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    }
+}

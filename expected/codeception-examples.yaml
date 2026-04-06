@@ -1,0 +1,276 @@
+run:
+  stats:
+    passed: 11
+    failed: 2
+    skipped: 1
+    broken: 0
+    muted: 0
+    total: 15
+results:
+- title: Full metadata test
+  signature: 17::tests::unit::combinedtest:testfullmetadata::{"user":"admin"}::{"role":"superuser"}
+  testops_ids:
+  - 17
+  status: passed
+  fields:
+    severity: critical
+    priority: high
+  params:
+    user: admin
+    role: superuser
+  relations:
+    suite:
+      data:
+      - title: E2E
+        public_id: null
+      - title: Combined
+        public_id: null
+  steps:
+  - data:
+      action: assert same "admin","admin"
+    execution:
+      status: passed
+  - data:
+      action: assert true true
+    execution:
+      status: passed
+- title: Partial metadata
+  signature: 18::tests::unit::combinedtest:testpartialmetadata
+  testops_ids:
+  - 18
+  status: passed
+  fields:
+    layer: integration
+  relations:
+    suite:
+      data:
+      - title: Combined
+        public_id: null
+- title: testSkip
+  signature: 4::tests::unit::attributetest:testskip
+  testops_ids:
+  - 4
+  status: skipped
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testSkip
+        public_id: null
+- title: testSimplePass
+  signature: 1::tests::unit::attributetest:testsimplepass
+  testops_ids:
+  - 1
+  status: passed
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testSimplePass
+        public_id: null
+- title: testWithSuites
+  signature: 8::tests::unit::attributetest:testwithsuites
+  testops_ids:
+  - 8
+  status: passed
+  relations:
+    suite:
+      data:
+      - title: Authentication
+        public_id: null
+      - title: Smoke
+        public_id: null
+- title: Custom test title
+  signature: 5::tests::unit::attributetest:testwithtitle
+  testops_ids:
+  - 5
+  status: passed
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testWithTitle
+        public_id: null
+- title: testError
+  signature: 3::tests::unit::attributetest:testerror
+  testops_ids:
+  - 3
+  status: invalid
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testError
+        public_id: null
+- title: testWithMultipleParameters
+  signature: 11::tests::unit::parametertest:testwithmultipleparameters::{"browser":"firefox"}::{"os":"linux"}
+  testops_ids:
+  - 11
+  status: passed
+  params:
+    browser: firefox
+    os: linux
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: ParameterTest
+        public_id: null
+      - title: testWithMultipleParameters
+        public_id: null
+- title: testWithFields
+  signature: 9::tests::unit::attributetest:testwithfields
+  testops_ids:
+  - 9
+  status: passed
+  fields:
+    severity: critical
+    priority: high
+    layer: unit
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testWithFields
+        public_id: null
+- title: testSimpleFail
+  signature: 2::tests::unit::attributetest:testsimplefail
+  testops_ids:
+  - 2
+  status: failed
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testSimpleFail
+        public_id: null
+- title: testWithMultipleIds
+  signature: 6-7::tests::unit::attributetest:testwithmultipleids
+  testops_ids:
+  - 6
+  - 7
+  status: passed
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: AttributeTest
+        public_id: null
+      - title: testWithMultipleIds
+        public_id: null
+- title: testWithSingleParameter
+  signature: 10::tests::unit::parametertest:testwithsingleparameter::{"browser":"chrome"}
+  testops_ids:
+  - 10
+  status: passed
+  params:
+    browser: chrome
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: ParameterTest
+        public_id: null
+      - title: testWithSingleParameter
+        public_id: null
+- title: testWithPassingSteps
+  signature: 13::tests::unit::steptest:testwithpassingsteps
+  testops_ids:
+  - 13
+  status: passed
+  relations:
+    suite:
+      data:
+      - title: Steps
+        public_id: null
+  steps:
+  - data:
+      action: assert same 1,1
+    execution:
+      status: passed
+  - data:
+      action: assert not empty "hello"
+    execution:
+      status: passed
+  - data:
+      action: assert true true
+    execution:
+      status: passed
+- title: testWithFailingStep
+  signature: 14::tests::unit::steptest:testwithfailingstep
+  testops_ids:
+  - 14
+  status: failed
+  relations:
+    suite:
+      data:
+      - title: Steps
+        public_id: null
+  steps:
+  - data:
+      action: assert true true
+    execution:
+      status: passed
+  - data:
+      action: assert same 1,2
+    execution:
+      status: failed
+- title: testWithParametersAndFields
+  signature: 12::tests::unit::parametertest:testwithparametersandfields::{"env":"production"}
+  testops_ids:
+  - 12
+  status: passed
+  fields:
+    severity: high
+  params:
+    env: production
+  relations:
+    suite:
+      data:
+      - title: Tests
+        public_id: null
+      - title: Unit
+        public_id: null
+      - title: ParameterTest
+        public_id: null
+      - title: testWithParametersAndFields
+        public_id: null

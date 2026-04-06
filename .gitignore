@@ -6,4 +6,17 @@ vendor
 .phpunit.cache/
 /coverage/
 
+# build artifacts
+build/
+
+# codeception output
+tests/_output/
+examples/tests/_output/
+
+# generated actor actions
+examples/tests/Support/_generated/
+
+# composer lock in examples (generated from path repo)
+examples/composer.lock
+
 .idea
