@@ -1,0 +1,47 @@
+examples/tests/Unit/AttributeTest.php
+  4bc9ee020ea206b9 1-71
+examples/tests/Unit.suite.yml
+  4bc9ee020ea206b9 1-4
+examples/tests/Support/Helper/Unit.php
+  4bc9ee020ea206b9 1-7
+scripts/clean_expected.py
+  4bc9ee020ea206b9 1-143
+examples/tests/Support/UnitTester.php
+  4bc9ee020ea206b9 1-25
+.gitignore
+  4bc9ee020ea206b9 9-21
+examples/testdata/test-log.txt
+  4bc9ee020ea206b9 1-3
+.github/workflows/integration-tests.yml
+  4bc9ee020ea206b9 1-50
+examples/composer.json
+  4bc9ee020ea206b9 1-19
+examples/tests/Unit/ParameterTest.php
+  4bc9ee020ea206b9 1-38
+examples/tests/Unit/CombinedTest.php
+  4bc9ee020ea206b9 1-40
+examples/codeception.yml
+  4bc9ee020ea206b9 1-12
+examples/tests/Unit/StepTest.php
+  4bc9ee020ea206b9 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "6d005c774b8b333ce51379e3ac019ab044c5a4b6",
+  "prompts": {
+    "4bc9ee020ea206b9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "717d5989-9332-44a0-b983-89782cdf8725",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 456,
+      "overriden_lines": 0
+    }
+  }
+}
