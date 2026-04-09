@@ -76,6 +76,44 @@ public function testLogin(): void
 }
 ```
 
+#### Tags
+Adds tags to the test case. Can be used on classes and methods. Tags from both levels are merged.
+
+```php
+use Qase\Codeception\Attributes\Tags;
+
+// Single attribute with multiple tags
+#[Tags('smoke', 'regression')]
+public function testLogin(): void
+{
+    $this->assertTrue(true);
+}
+
+// Multiple Tags attributes
+#[Tags('smoke')]
+#[Tags('regression')]
+public function testLogin(): void
+{
+    $this->assertTrue(true);
+}
+
+// Class-level + method-level merge
+#[Tags('smoke')]
+class AuthTest extends \Codeception\Test\Unit
+{
+    #[Tags('regression')]
+    public function testLogin(): void
+    {
+        // Gets both 'smoke' and 'regression' tags
+    }
+
+    public function testLogout(): void
+    {
+        // Gets only 'smoke' tag (inherited from class)
+    }
+}
+```
+
 #### Parameter
 Adds parameters to the test case. Useful for parameterized tests.
 
@@ -101,6 +139,7 @@ use Qase\Codeception\Attributes\QaseId;
 use Qase\Codeception\Attributes\Title;
 use Qase\Codeception\Attributes\Suite;
 use Qase\Codeception\Attributes\Field;
+use Qase\Codeception\Attributes\Tags;
 use Qase\Codeception\Attributes\Parameter;
 use Tests\Support\UnitTester;
 
@@ -114,6 +153,7 @@ class LoginTest extends \Codeception\Test\Unit
     #[Suite('Critical Features')]
     #[Field('description', 'Test verifies successful user login')]
     #[Field('severity', 'high')]
+    #[Tags('smoke')]
     #[Parameter('user_type', 'admin')]
     public function testSuccessfulLogin(): void
     {

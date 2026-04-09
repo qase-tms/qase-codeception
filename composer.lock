@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8367e5e32744aacd4f2973a90ab72e26",
+    "content-hash": "0651a36e553b630d37aab3aa98b70f0d",
     "packages": [
         {
             "name": "behat/gherkin",
@@ -91,16 +91,16 @@
         },
         {
             "name": "brick/math",
-            "version": "0.14.1",
+            "version": "0.14.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "f05858549e5f9d7bb45875a75583240a38a281d0"
+                "reference": "63422359a44b7f06cae63c3b429b59e8efcc0629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/f05858549e5f9d7bb45875a75583240a38a281d0",
-                "reference": "f05858549e5f9d7bb45875a75583240a38a281d0",
+                "url": "https://api.github.com/repos/brick/math/zipball/63422359a44b7f06cae63c3b429b59e8efcc0629",
+                "reference": "63422359a44b7f06cae63c3b429b59e8efcc0629",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.14.1"
+                "source": "https://github.com/brick/math/tree/0.14.8"
             },
             "funding": [
                 {
@@ -147,7 +147,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-24T14:40:29+00:00"
+            "time": "2026-02-10T14:33:43+00:00"
         },
         {
             "name": "codeception/codeception",
@@ -582,16 +582,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "21dc724a0583619cd1652f673303492272778051"
+                "reference": "7d0ed42f28e42d61352a7a79de682e5e67fec884"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/21dc724a0583619cd1652f673303492272778051",
-                "reference": "21dc724a0583619cd1652f673303492272778051",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/7d0ed42f28e42d61352a7a79de682e5e67fec884",
+                "reference": "7d0ed42f28e42d61352a7a79de682e5e67fec884",
                 "shasum": ""
             },
             "require": {
@@ -607,6 +607,7 @@
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
                 "http-interop/http-factory-tests": "0.9.0",
+                "jshttp/mime-db": "1.54.0.1",
                 "phpunit/phpunit": "^8.5.44 || ^9.6.25"
             },
             "suggest": {
@@ -678,7 +679,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.8.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.9.0"
             },
             "funding": [
                 {
@@ -694,7 +695,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-23T21:21:41+00:00"
+            "time": "2026-03-10T16:41:02+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1715,22 +1716,22 @@
         },
         {
             "name": "qase/php-commons",
-            "version": "2.1.12",
+            "version": "2.1.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qase-tms/qase-php-commons.git",
-                "reference": "bf177809b99c6d3bb4dc961ac5661b01919e5e54"
+                "reference": "ca0459b6b97a7810a7aa1db15297f864827556d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-php-commons/zipball/bf177809b99c6d3bb4dc961ac5661b01919e5e54",
-                "reference": "bf177809b99c6d3bb4dc961ac5661b01919e5e54",
+                "url": "https://api.github.com/repos/qase-tms/qase-php-commons/zipball/ca0459b6b97a7810a7aa1db15297f864827556d0",
+                "reference": "ca0459b6b97a7810a7aa1db15297f864827556d0",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.0",
                 "qase/qase-api-client": "^1.1.5",
-                "qase/qase-api-v2-client": "^1.1.2",
+                "qase/qase-api-v2-client": "^1.1.5",
                 "ramsey/uuid": "^4.7"
             },
             "require-dev": {
@@ -1764,22 +1765,22 @@
             ],
             "support": {
                 "issues": "https://github.com/qase-tms/qase-php-commons/issues",
-                "source": "https://github.com/qase-tms/qase-php-commons/tree/v2.1.12"
+                "source": "https://github.com/qase-tms/qase-php-commons/tree/v2.1.18"
             },
-            "time": "2026-01-27T13:30:32+00:00"
+            "time": "2026-04-09T08:02:34+00:00"
         },
         {
             "name": "qase/qase-api-client",
-            "version": "1.1.5",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qase-tms/qase-api-client.git",
-                "reference": "2a95fe3c8a09a3d733338cde79c3f97ce74ea6d2"
+                "reference": "edde038fcc858cd342eb900c076524798f635772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-api-client/zipball/2a95fe3c8a09a3d733338cde79c3f97ce74ea6d2",
-                "reference": "2a95fe3c8a09a3d733338cde79c3f97ce74ea6d2",
+                "url": "https://api.github.com/repos/qase-tms/qase-api-client/zipball/edde038fcc858cd342eb900c076524798f635772",
+                "reference": "edde038fcc858cd342eb900c076524798f635772",
                 "shasum": ""
             },
             "require": {
@@ -1820,22 +1821,22 @@
             ],
             "support": {
                 "issues": "https://github.com/qase-tms/qase-api-client/issues",
-                "source": "https://github.com/qase-tms/qase-api-client/tree/v1.1.5"
+                "source": "https://github.com/qase-tms/qase-api-client/tree/v1.1.10"
             },
-            "time": "2025-09-23T12:19:27+00:00"
+            "time": "2026-03-26T13:32:24+00:00"
         },
         {
             "name": "qase/qase-api-v2-client",
-            "version": "1.1.2",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qase-tms/qase-api-v2-client.git",
-                "reference": "1d70ae5efc88fdb24af60bd24e3f0352237ee86c"
+                "reference": "9cc363fc035bd66b8bdae5cf894525136d660000"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-api-v2-client/zipball/1d70ae5efc88fdb24af60bd24e3f0352237ee86c",
-                "reference": "1d70ae5efc88fdb24af60bd24e3f0352237ee86c",
+                "url": "https://api.github.com/repos/qase-tms/qase-api-v2-client/zipball/9cc363fc035bd66b8bdae5cf894525136d660000",
+                "reference": "9cc363fc035bd66b8bdae5cf894525136d660000",
                 "shasum": ""
             },
             "require": {
@@ -1876,9 +1877,9 @@
             ],
             "support": {
                 "issues": "https://github.com/qase-tms/qase-api-v2-client/issues",
-                "source": "https://github.com/qase-tms/qase-api-v2-client/tree/v1.1.2"
+                "source": "https://github.com/qase-tms/qase-api-v2-client/tree/v1.1.5"
             },
-            "time": "2025-08-13T07:36:21+00:00"
+            "time": "2026-04-07T12:51:13+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

@@ -83,6 +83,7 @@ class Reporter extends Extension
         $result->title = $metadata->title ?? $test->getName();
         $result->params = $metadata->parameters;
         $result->fields = $metadata->fields;
+        $result->tags = $metadata->tags;
         $result->signature = $this->createSignature($event, $metadata->qaseIds, $metadata->parameters);
         $result->execution->thread = "main";
         $result->relations = $relation;

@@ -8,9 +8,11 @@ use Qase\Codeception\Attributes\Field;
 use Qase\Codeception\Attributes\QaseId;
 use Qase\Codeception\Attributes\QaseIds;
 use Qase\Codeception\Attributes\Suite;
+use Qase\Codeception\Attributes\Tags;
 use Qase\Codeception\Attributes\Title;
 use Tests\Support\UnitTester;
 
+#[Tags("smoke")]
 class AttributeTest extends \Codeception\Test\Unit
 {
     protected UnitTester $tester;
@@ -64,6 +66,7 @@ class AttributeTest extends \Codeception\Test\Unit
     #[Field('severity', 'critical')]
     #[Field('priority', 'high')]
     #[Field('layer', 'unit')]
+    #[Tags('regression')]
     public function testWithFields(): void
     {
         $this->assertCount(3, [1, 2, 3]);
