@@ -1,0 +1,23 @@
+expected/codeception-examples.yaml
+  5a5b994b12f18d0f 18,55,72,89,102,119,159,176,194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "f8a46ea234741d30c33198594d78d2171894d135",
+  "prompts": {
+    "5a5b994b12f18d0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "389bcca0-b191-4168-99c9-88ce7e8f955c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 9,
+      "total_deletions": 19,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
