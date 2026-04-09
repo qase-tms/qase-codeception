@@ -15,6 +15,7 @@ results:
   fields:
     severity: critical
     priority: high
+  tags: smoke
   params:
     user: admin
     role: superuser
@@ -51,6 +52,7 @@ results:
   testops_ids:
   - 4
   status: skipped
+  tags: smoke
   relations:
     suite:
       data:
@@ -67,6 +69,7 @@ results:
   testops_ids:
   - 1
   status: passed
+  tags: smoke
   relations:
     suite:
       data:
@@ -83,6 +86,7 @@ results:
   testops_ids:
   - 8
   status: passed
+  tags: smoke
   relations:
     suite:
       data:
@@ -95,6 +99,7 @@ results:
   testops_ids:
   - 5
   status: passed
+  tags: smoke
   relations:
     suite:
       data:
@@ -111,6 +116,7 @@ results:
   testops_ids:
   - 3
   status: invalid
+  tags: smoke
   relations:
     suite:
       data:
@@ -150,6 +156,7 @@ results:
     severity: critical
     priority: high
     layer: unit
+  tags: smoke,regression
   relations:
     suite:
       data:
@@ -166,6 +173,7 @@ results:
   testops_ids:
   - 2
   status: failed
+  tags: smoke
   relations:
     suite:
       data:
@@ -183,6 +191,7 @@ results:
   - 6
   - 7
   status: passed
+  tags: smoke
   relations:
     suite:
       data:

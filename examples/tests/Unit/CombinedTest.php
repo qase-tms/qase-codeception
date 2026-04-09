@@ -8,6 +8,7 @@ use Qase\Codeception\Attributes\Field;
 use Qase\Codeception\Attributes\Parameter;
 use Qase\Codeception\Attributes\QaseId;
 use Qase\Codeception\Attributes\Suite;
+use Qase\Codeception\Attributes\Tags;
 use Qase\Codeception\Attributes\Title;
 use Tests\Support\UnitTester;
 
@@ -21,6 +22,7 @@ class CombinedTest extends \Codeception\Test\Unit
     #[Suite('Combined')]
     #[Field('severity', 'critical')]
     #[Field('priority', 'high')]
+    #[Tags('smoke')]
     #[Parameter('user', 'admin')]
     #[Parameter('role', 'superuser')]
     public function testFullMetadata(): void
