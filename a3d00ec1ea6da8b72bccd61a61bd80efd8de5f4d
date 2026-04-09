@@ -1,0 +1,47 @@
+src/Attributes/Tags.php
+  5a5b994b12f18d0f 1-31
+tests/ClassTagsFixture.php
+  5a5b994b12f18d0f 1-16
+tests/TagsFixture.php
+  5a5b994b12f18d0f 1-30
+docs/usage.md
+  5a5b994b12f18d0f 79-116,142,156
+examples/tests/Unit/CombinedTest.php
+  5a5b994b12f18d0f 11,25
+composer.json
+  5a5b994b12f18d0f 22,38
+tests/TagsAttributeTest.php
+  5a5b994b12f18d0f 1-60
+src/Attributes/AttributeParser.php
+  5a5b994b12f18d0f 86-89
+examples/tests/Unit/AttributeTest.php
+  5a5b994b12f18d0f 11,15,69
+expected/codeception-examples.yaml
+  5a5b994b12f18d0f 18-19,56-57,74-75,92-93,106-107,124-125,165-167,184-185,203-204
+src/Reporter.php
+  5a5b994b12f18d0f 86
+src/Models/Metadata.php
+  5a5b994b12f18d0f 12
+src/Attributes/TagsAttributeInterface.php
+  5a5b994b12f18d0f 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "a3d00ec1ea6da8b72bccd61a61bd80efd8de5f4d",
+  "prompts": {
+    "5a5b994b12f18d0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "389bcca0-b191-4168-99c9-88ce7e8f955c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 220,
+      "total_deletions": 2,
+      "accepted_lines": 220,
+      "overriden_lines": 0
+    }
+  }
+}
