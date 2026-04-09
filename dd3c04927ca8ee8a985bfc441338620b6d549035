@@ -1,0 +1,47 @@
+expected/codeception-examples.yaml
+  5a5b994b12f18d0f 18,55,72,89,102,119,159,176,194
+src/Attributes/TagsAttributeInterface.php
+  5a5b994b12f18d0f 1-11
+tests/ClassTagsFixture.php
+  5a5b994b12f18d0f 1-16
+docs/usage.md
+  5a5b994b12f18d0f 79-116,142,156
+examples/tests/Unit/AttributeTest.php
+  5a5b994b12f18d0f 11,15,69
+src/Attributes/Tags.php
+  5a5b994b12f18d0f 1-31
+src/Models/Metadata.php
+  5a5b994b12f18d0f 12
+examples/tests/Unit/CombinedTest.php
+  5a5b994b12f18d0f 11,25
+src/Attributes/AttributeParser.php
+  5a5b994b12f18d0f 86-89
+src/Reporter.php
+  5a5b994b12f18d0f 86
+composer.json
+  5a5b994b12f18d0f 22,38
+tests/TagsFixture.php
+  5a5b994b12f18d0f 1-30
+tests/TagsAttributeTest.php
+  5a5b994b12f18d0f 1-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "dd3c04927ca8ee8a985bfc441338620b6d549035",
+  "prompts": {
+    "5a5b994b12f18d0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "389bcca0-b191-4168-99c9-88ce7e8f955c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 210,
+      "overriden_lines": 0
+    }
+  }
+}
