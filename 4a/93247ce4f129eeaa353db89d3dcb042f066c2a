@@ -1,0 +1,19 @@
+.github/workflows/integration-tests.yml
+  s_84f234021d50a7::t_0180bfea360418 9-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a93247ce4f129eeaa353db89d3dcb042f066c2a",
+  "prompts": {},
+  "sessions": {
+    "s_84f234021d50a7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "57cf3952-d893-486b-ba5f-68eab08f9fe4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
